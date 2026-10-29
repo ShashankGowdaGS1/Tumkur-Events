@@ -4,6 +4,7 @@ import { TrustLocalPresence } from '@/components/sections/trust-local-presence';
 import { ArtOfCelebration } from '@/components/sections/art-of-celebration';
 import { ExploreYourOccasion } from '@/components/sections/explore-your-occasion';
 import { SelectedCelebrations } from '@/components/sections/selected-celebrations';
+import { OurExpertise } from '@/components/sections/our-expertise';
 
 export default function HomePage() {
   return (
@@ -40,6 +41,13 @@ export default function HomePage() {
           Asymmetric 12-column photographic mosaic on charcoal with interactive lightbox.
          ========================================================================= */}
       <SelectedCelebrations />
+
+      {/* =========================================================================
+          HOMEPAGE SECTION 06: OUR EXPERTISE
+          Typography-led editorial services grid communicating Tumkur Events'
+          decoration and creative styling capabilities ("Every Detail. Beautifully Considered.").
+         ========================================================================= */}
+      <OurExpertise />
     </main>
   );
 }
