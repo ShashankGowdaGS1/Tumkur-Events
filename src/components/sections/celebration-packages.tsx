@@ -3,27 +3,27 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Check, ChevronDown, Sparkles } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { gsap, registerGsapPlugins, prefersReducedMotion } from '@/lib/gsap';
 import {
   celebrationPackages,
   packagesIntro,
   customQuoteContent,
-  type CelebrationPackage,
+  pricingDisclaimerText,
 } from '@/config/packages';
 
 /**
  * Section 08: Packages & Flexible Celebrations — "The Celebration Atelier"
  *
- * Visual Enhancements:
- * - Warm Ivory (#F7F4EE) & soft Champagne (#E8DFCF) background contrasting with the dark Section 07.
- * - Partial organic floral arrangement cascading from the upper-right corner.
- * - Asymmetric 55% / 45% desktop composition:
- *   Left 55%: Interactive 3-package accordion with pricing, details, inclusions, and enquiry buttons.
- *   Right 45%: Large featured photograph dynamically switching with smooth cross-fade and caption overlay.
- * - Mobile: Photography integrated directly into the active expanded accordion row.
- * - Closing bespoke commission quote block with botanical line flourishes.
+ * UX & Hierarchy Refinements (Phase 10B):
+ * - Simplified, scannable content hierarchy (5–8 second comprehension)
+ * - Single prominent price display per package (removed redundant "Starting at" labels)
+ * - One concise description followed by exactly four single-column highlights
+ * - Refined, unobtrusive checkmarks with high-contrast charcoal typography
+ * - Prominent, uniform CTA: "Enquire About This Package"
+ * - Clear pricing disclaimer above the enquiry button
+ * - Preserved 55%/45% desktop composition, dynamic event photography, and floral corner
  */
 export function CelebrationPackages() {
   const [activePackageId, setActivePackageId] = useState<string>('signature-celebrations');
@@ -113,7 +113,7 @@ export function CelebrationPackages() {
   }, []);
 
   const handlePackageToggle = (id: string) => {
-    // Keep at least one package active so featured photograph is always visible
+    // Keep at least one package active so featured photograph remains visible
     setActivePackageId(id);
   };
 
@@ -199,42 +199,29 @@ export function CelebrationPackages() {
                       {/* Package Number */}
                       <span
                         className={cn(
-                          'font-sans text-xs sm:text-sm font-bold tracking-[0.2em] transition-colors',
+                          'font-sans text-xs sm:text-sm font-bold tracking-[0.2em] transition-colors shrink-0 pt-0.5 sm:pt-0',
                           isActive ? 'text-gold-deep' : 'text-charcoal/40'
                         )}
                       >
                         {pkg.number}
                       </span>
 
-                      {/* Package Title & Subtitle */}
+                      {/* Package Title & Short One-Line Description */}
                       <div>
-                        <div className="flex items-center gap-2.5 flex-wrap">
-                          <h3 className="font-display text-xl sm:text-2xl text-charcoal tracking-tight">
-                            {pkg.title}
-                          </h3>
-                          {pkg.isPopular && (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs text-[10px] font-sans font-semibold tracking-widest text-gold-deep bg-gold/15 border border-gold/30">
-                              <Sparkles className="w-2.5 h-2.5" />
-                              MOST POPULAR
-                            </span>
-                          )}
-                        </div>
-                        <p className="font-sans text-xs text-charcoal/60 mt-0.5 hidden sm:block">
+                        <h3 className="font-display text-xl sm:text-2xl lg:text-[1.65rem] text-charcoal tracking-tight">
+                          {pkg.title}
+                        </h3>
+                        <p className="font-sans text-xs sm:text-[13px] text-charcoal/65 mt-0.5">
                           {pkg.subtitle}
                         </p>
                       </div>
                     </div>
 
-                    {/* Price and Expand Toggle Icon */}
+                    {/* Single Prominent Price & Small Expand Indicator */}
                     <div className="flex items-center gap-3 shrink-0 text-right">
-                      <div className="flex flex-col items-end">
-                        <span className="font-sans text-sm sm:text-base font-semibold text-charcoal">
-                          {pkg.priceDisplay}
-                        </span>
-                        <span className="font-sans text-[11px] text-charcoal/50 font-normal">
-                          {pkg.priceStarting}
-                        </span>
-                      </div>
+                      <span className="font-sans text-base sm:text-lg lg:text-xl font-semibold text-charcoal">
+                        {pkg.priceDisplay}
+                      </span>
                       <div
                         className={cn(
                           'w-7 h-7 rounded-full border flex items-center justify-center transition-all duration-normal ease-luxury shrink-0',
@@ -250,14 +237,9 @@ export function CelebrationPackages() {
 
                   {/* Expanded Content Area */}
                   {isActive && (
-                    <div className="px-5 pb-6 sm:px-7 sm:pb-8 pt-2 border-t border-gold/20 animate-fadeIn">
-                      {/* Subtitle on mobile */}
-                      <p className="font-sans text-xs font-medium text-gold-deep uppercase tracking-wider mb-2 sm:hidden">
-                        {pkg.subtitle}
-                      </p>
-
-                      {/* Package Description */}
-                      <p className="font-sans text-sm sm:text-[15px] text-charcoal/80 leading-relaxed mb-5">
+                    <div className="px-5 pb-6 sm:px-7 sm:pb-8 pt-3 border-t border-gold/20 animate-fadeIn">
+                      {/* 1. Concise Package Description */}
+                      <p className="font-sans text-sm sm:text-base text-charcoal/80 leading-relaxed mb-5">
                         {pkg.description}
                       </p>
 
@@ -284,39 +266,42 @@ export function CelebrationPackages() {
                         </div>
                       </div>
 
-                      {/* Inclusions Checklist */}
+                      {/* 2. Package Highlights (Single-Column List, Max 4 items) */}
                       <div className="mb-6">
-                        <span className="font-sans text-xs font-bold uppercase tracking-[0.16em] text-charcoal block mb-3">
-                          What This Curation Includes:
+                        <span className="font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-charcoal/60 block mb-3">
+                          PACKAGE HIGHLIGHTS
                         </span>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          {pkg.inclusions.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-charcoal/75">
-                              <span className="w-4 h-4 rounded-full bg-gold/20 flex items-center justify-center shrink-0 mt-0.5 text-gold-deep">
-                                <Check className="w-2.5 h-2.5" />
-                              </span>
+                        <ul className="flex flex-col gap-2.5">
+                          {pkg.highlights.map((item, i) => (
+                            <li
+                              key={i}
+                              className="flex items-center gap-3 text-sm sm:text-[15px] text-charcoal/90 leading-normal"
+                            >
+                              <Check className="w-3.5 h-3.5 text-gold-deep shrink-0" />
                               <span>{item}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
-                      {/* Enquiry Action Button */}
-                      <div className="pt-4 border-t border-charcoal/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <span className="font-sans text-xs text-charcoal/60">
-                          Includes bespoke color palettes &amp; on-site styling.
-                        </span>
+                      {/* 3. Divider, Pricing Disclaimer & Primary Enquiry CTA */}
+                      <div className="pt-5 border-t border-charcoal/10 flex flex-col gap-4">
+                        <p className="font-sans text-xs text-charcoal/60 italic font-light">
+                          {pricingDisclaimerText}
+                        </p>
 
-                        <Link
-                          href={pkg.enquiryHref}
-                          className="group inline-flex items-center justify-center gap-3 px-6 py-3 bg-charcoal text-ivory text-xs uppercase tracking-[0.16em] font-semibold border border-charcoal hover:bg-charcoal-light hover:border-gold transition-all duration-normal ease-luxury focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2"
-                        >
-                          <span>Enquire About {pkg.title}</span>
-                          <ArrowRight
-                            className="h-3.5 w-3.5 text-gold transition-transform duration-normal ease-luxury group-hover:translate-x-1"
-                            aria-hidden="true"
-                          />
-                        </Link>
+                        <div>
+                          <Link
+                            href={pkg.enquiryHref}
+                            className="group inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-charcoal text-ivory text-xs uppercase tracking-[0.16em] font-semibold border border-charcoal hover:bg-charcoal-light hover:border-gold transition-all duration-normal ease-luxury focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 w-full sm:w-auto"
+                          >
+                            <span>Enquire About This Package</span>
+                            <ArrowRight
+                              className="h-3.5 w-3.5 text-gold transition-transform duration-normal ease-luxury group-hover:translate-x-1"
+                              aria-hidden="true"
+                            />
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -329,7 +314,7 @@ export function CelebrationPackages() {
               RIGHT COLUMN (45%): Large Edge-to-Edge Featured Photograph (Desktop)
              ------------------------------------------------------------------- */}
           <div ref={rightColRef} className="hidden lg:block lg:col-span-5 sticky top-28">
-            <div className="relative w-full h-[580px] lg:h-[640px] overflow-hidden rounded-xs border border-gold/30 shadow-md bg-charcoal">
+            <div className="relative w-full h-[580px] lg:h-[620px] overflow-hidden rounded-xs border border-gold/30 shadow-md bg-charcoal">
               {celebrationPackages.map((pkg, idx) => {
                 const isActive = pkg.id === activePackageId;
 

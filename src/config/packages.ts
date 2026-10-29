@@ -14,15 +14,14 @@ export interface CelebrationPackage {
   readonly title: string;
   readonly subtitle: string;
   readonly priceDisplay: string;
-  readonly priceStarting: string;
   readonly description: string;
+  readonly highlights: readonly string[];
+  readonly detailedInclusions: readonly string[];
   readonly image: string;
   readonly imageAlt: string;
   readonly captionTag: string;
   readonly captionQuote: string;
-  readonly inclusions: readonly string[];
   readonly enquiryHref: string;
-  readonly isPopular?: boolean;
 }
 
 export const celebrationPackages: readonly CelebrationPackage[] = [
@@ -30,22 +29,27 @@ export const celebrationPackages: readonly CelebrationPackage[] = [
     id: 'intimate-moments',
     number: '01',
     title: 'Intimate Moments',
-    subtitle: 'Bespoke styling for home ceremonies & birthdays',
+    subtitle: 'Bespoke styling for birthdays & home gatherings',
     priceDisplay: '₹18,000 – ₹35,000',
-    priceStarting: 'Starting at ₹18,000',
     description:
-      'Thoughtfully curated decorative styling for intimate family celebrations, cozy birthday parties, and home ceremonies with warm aesthetics and personalized focal backdrops.',
-    image: '/images/events/birthdays.jpg',
-    imageAlt: 'Bespoke pastel balloon garland and floral birthday celebration stage in Tumakuru',
-    captionTag: '01 / 03 • INTIMATE MOMENTS',
-    captionQuote: 'Thoughtfully curated styling for cozy celebrations and cherished family gatherings.',
-    inclusions: [
+      'Thoughtful decoration for birthdays, home ceremonies, and intimate gatherings.',
+    highlights: [
+      'Custom balloon or decorative backdrop',
+      'Cake table and display styling',
+      'Coordinated colors and decorative accents',
+      'Setup and finishing arrangements',
+    ],
+    detailedInclusions: [
       'Custom circular or organic balloon focal backdrop',
       'Themed cake plinth, display pedestals & accent props',
       'Warm ambient wash lighting & spotlighting',
       'Personalized welcome easel display with floral accent',
       'Complete on-site artisan setup and post-event removal',
     ],
+    image: '/images/events/birthdays.jpg',
+    imageAlt: 'Bespoke pastel balloon garland and floral birthday celebration stage in Tumakuru',
+    captionTag: '01 / 03 • INTIMATE MOMENTS',
+    captionQuote: 'Thoughtfully curated styling for cozy celebrations and cherished family gatherings.',
     enquiryHref: '/contact?package=intimate-moments',
   },
   {
@@ -54,14 +58,15 @@ export const celebrationPackages: readonly CelebrationPackage[] = [
     title: 'Signature Celebrations',
     subtitle: 'Elevated decor for engagements & milestone ceremonies',
     priceDisplay: '₹45,000 – ₹85,000',
-    priceStarting: 'Starting at ₹45,000',
     description:
-      'Our most beloved styling suite. A harmonious balance of fresh seasonal florals, architectural stage backdrops, and traditional South Indian ceremonial illumination.',
-    image: '/images/events/traditional-ceremonies.jpg',
-    imageAlt: 'Karnataka traditional ceremony stage with fresh jasmine, marigolds, and brass samai lamps',
-    captionTag: '02 / 03 • SIGNATURE CELEBRATIONS',
-    captionQuote: 'Harmonious fresh floral artistry and traditional ceremonial illumination.',
-    inclusions: [
+      'Personalized event styling with memorable floral and ceremonial details.',
+    highlights: [
+      'Customized stage or main backdrop',
+      'Coordinated floral arrangements',
+      'Entrance and photo-area decoration',
+      'Decorative lighting and finishing details',
+    ],
+    detailedInclusions: [
       'Full architectural stage backdrop draped in fresh roses & jasmine',
       'Coordinated entrance walkway archway with welcoming floral elements',
       'Traditional brass samai / kuthuvillakku lamps & ceremonial decor',
@@ -69,23 +74,27 @@ export const celebrationPackages: readonly CelebrationPackage[] = [
       'Dedicated guest photo opportunity corner',
       'Full on-site styling coordinator throughout event execution',
     ],
+    image: '/images/events/traditional-ceremonies.jpg',
+    imageAlt: 'Karnataka traditional ceremony stage with fresh jasmine, marigolds, and brass samai lamps',
+    captionTag: '02 / 03 • SIGNATURE CELEBRATIONS',
+    captionQuote: 'Harmonious fresh floral artistry and traditional ceremonial illumination.',
     enquiryHref: '/contact?package=signature-celebrations',
-    isPopular: true,
   },
   {
     id: 'grand-statements',
     number: '03',
     title: 'Grand Statements',
-    subtitle: 'Monumental spatial artistry for weddings & grand receptions',
+    subtitle: 'Monumental spatial artistry for weddings & receptions',
     priceDisplay: '₹1,10,000 – ₹2,50,000+',
-    priceStarting: 'Starting at ₹1,10,000',
     description:
-      'Theatrical scale and immersive spatial transformation. Cascading floral arrangements, crystal chandeliers, panoramic backdrops, and majestic ceremonial artistry.',
-    image: '/images/events/weddings.jpg',
-    imageAlt: 'Opulent wedding stage with cascading floral arches and crystal chandeliers in Tumakuru',
-    captionTag: '03 / 03 • GRAND STATEMENTS',
-    captionQuote: 'Theatrical scale, panoramic floral cascades, and unforgettable grandeur.',
-    inclusions: [
+      'Grand floral installations and coordinated styling for larger celebrations.',
+    highlights: [
+      'Grand stage and floral backdrop',
+      'Entrance and venue styling',
+      'Decorative lighting and ambience',
+      'Ceremonial seating and finishing details',
+    ],
+    detailedInclusions: [
       'Monumental panoramic stage installation with cascading premium blooms',
       'Grand illuminated entrance tunnel with crystal chandeliers & draping',
       'Full venue spatial ambiance & perimeter architectural draping',
@@ -93,6 +102,10 @@ export const celebrationPackages: readonly CelebrationPackage[] = [
       'Multi-tiered warm wash, profile follow-spots & fairy-light canopy',
       'Senior styling director & full artisan production crew on site',
     ],
+    image: '/images/events/weddings.jpg',
+    imageAlt: 'Opulent wedding stage with cascading floral arches and crystal chandeliers in Tumakuru',
+    captionTag: '03 / 03 • GRAND STATEMENTS',
+    captionQuote: 'Theatrical scale, panoramic floral cascades, and unforgettable grandeur.',
     enquiryHref: '/contact?package=grand-statements',
   },
 ];
@@ -113,3 +126,6 @@ export const customQuoteContent = {
   ctaText: 'Request a Custom Estimate',
   ctaHref: '/contact?inquiry=custom-event',
 } as const;
+
+export const pricingDisclaimerText =
+  'Indicative pricing. Final inclusions and costs are confirmed through a custom quotation.';
