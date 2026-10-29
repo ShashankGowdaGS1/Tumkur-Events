@@ -72,3 +72,4 @@ export const processClosing = {
   ctaText: 'Start Planning Your Event',
   ctaHref: '/contact',
 } as const;
+

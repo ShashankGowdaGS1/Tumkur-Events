@@ -6,6 +6,7 @@ import { ExploreYourOccasion } from '@/components/sections/explore-your-occasion
 import { SelectedCelebrations } from '@/components/sections/selected-celebrations';
 import { OurExpertise } from '@/components/sections/our-expertise';
 import { EventProcessTimeline } from '@/components/sections/event-process-timeline';
+import { CelebrationPackages } from '@/components/sections/celebration-packages';
 
 export default function HomePage() {
   return (
@@ -56,6 +57,13 @@ export default function HomePage() {
           milestones above and below a continuous central gold rail.
          ========================================================================= */}
       <EventProcessTimeline />
+
+      {/* =========================================================================
+          HOMEPAGE SECTION 08: PACKAGES & FLEXIBLE CELEBRATIONS
+          "The Celebration Atelier" — Editorial pricing and package curations with
+          dynamic featured photography, organic floral corner, and custom quote area.
+         ========================================================================= */}
+      <CelebrationPackages />
     </main>
   );
 }
