@@ -5,6 +5,7 @@ import { ArtOfCelebration } from '@/components/sections/art-of-celebration';
 import { ExploreYourOccasion } from '@/components/sections/explore-your-occasion';
 import { SelectedCelebrations } from '@/components/sections/selected-celebrations';
 import { OurExpertise } from '@/components/sections/our-expertise';
+import { EventProcessTimeline } from '@/components/sections/event-process-timeline';
 
 export default function HomePage() {
   return (
@@ -48,6 +49,13 @@ export default function HomePage() {
           decoration and creative styling capabilities ("Every Detail. Beautifully Considered.").
          ========================================================================= */}
       <OurExpertise />
+
+      {/* =========================================================================
+          HOMEPAGE SECTION 07: FROM VISION TO CELEBRATION
+          Horizontal travelling, scroll-driven process timeline with alternating
+          milestones above and below a continuous central gold rail.
+         ========================================================================= */}
+      <EventProcessTimeline />
     </main>
   );
 }
