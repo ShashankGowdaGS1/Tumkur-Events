@@ -7,6 +7,7 @@ import { SelectedCelebrations } from '@/components/sections/selected-celebration
 import { OurExpertise } from '@/components/sections/our-expertise';
 import { EventProcessTimeline } from '@/components/sections/event-process-timeline';
 import { CelebrationPackages } from '@/components/sections/celebration-packages';
+import { ClientStories } from '@/components/sections/client-stories';
 
 export default function HomePage() {
   return (
@@ -64,6 +65,13 @@ export default function HomePage() {
           dynamic featured photography, organic floral corner, and custom quote area.
          ========================================================================= */}
       <CelebrationPackages />
+
+      {/* =========================================================================
+          HOMEPAGE SECTION 09: CLIENT STORIES & REVIEWS
+          "Stories Behind the Celebrations" — Luxury editorial testimonial showcase
+          on Champagne (#E8DFCF) with edge-to-edge photography and verified reviews.
+         ========================================================================= */}
+      <ClientStories />
     </main>
   );
 }
