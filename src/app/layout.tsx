@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { fontMarcellus, fontManrope, fontAllura } from '@/lib/fonts';
 import { siteConfig } from '@/config/site';
 import { SiteHeader } from '@/components/layout/site-header';
+import { SiteFooter } from '@/components/layout/site-footer';
+import { FloatingContactActions } from '@/components/floating/floating-contact-actions';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -77,6 +79,8 @@ export default function RootLayout({
       <body className="min-h-screen bg-ivory text-charcoal antialiased selection:bg-champagne selection:text-charcoal flex flex-col font-sans">
         <SiteHeader />
         <div className="flex-1 flex flex-col">{children}</div>
+        <SiteFooter />
+        <FloatingContactActions />
       </body>
     </html>
   );
