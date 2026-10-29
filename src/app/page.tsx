@@ -8,6 +8,7 @@ import { OurExpertise } from '@/components/sections/our-expertise';
 import { EventProcessTimeline } from '@/components/sections/event-process-timeline';
 import { CelebrationPackages } from '@/components/sections/celebration-packages';
 import { ClientStories } from '@/components/sections/client-stories';
+import { CelebrationFaq } from '@/components/sections/celebration-faq';
 
 export default function HomePage() {
   return (
@@ -72,6 +73,14 @@ export default function HomePage() {
           on Champagne (#E8DFCF) with edge-to-edge photography and verified reviews.
          ========================================================================= */}
       <ClientStories />
+
+      {/* =========================================================================
+          HOMEPAGE SECTION 10: FREQUENTLY ASKED QUESTIONS
+          "The Celebration Concierge" — Two-column split-screen editorial FAQ
+          with authentic Indian decor photography, accessible single-open accordion,
+          and direct enquiry CTA.
+         ========================================================================= */}
+      <CelebrationFaq />
     </main>
   );
 }
