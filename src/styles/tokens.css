@@ -1,0 +1,92 @@
+:root {
+  /* =========================================================================
+     BRAND & DESIGN TOKENS — TUMKUR EVENTS
+     Philosophy: Contemporary Celebration Luxury
+     60 / 30 / 10 Visual Principle:
+       60% Warm Ivory (#F7F4EE)
+       30% Charcoal   (#151515)
+       10% Brand Gold (#C79E22)
+     ========================================================================= */
+
+  /* Primary Palette */
+  --color-ivory: #F7F4EE;
+  --color-ivory-light: #FDFBF7;
+  --color-ivory-subtle: #EFE9DD;
+  --color-charcoal: #151515;
+  --color-charcoal-light: #222222;
+  --color-charcoal-muted: #303030;
+  --color-gold: #C79E22;
+  --color-gold-hover: #D6AC2A;
+
+  /* Supporting Palette */
+  --color-deep-gold: #8A6714;
+  --color-silver: #B8B8B6;
+  --color-silver-light: #DADAD8;
+  --color-champagne: #E8DFCF;
+  --color-champagne-light: #F3ECE0;
+
+  /* Accessible Text Hierarchy Rules:
+     Gold (#C79E22) on Ivory (#F7F4EE) does NOT meet WCAG AA contrast for small text.
+     Therefore:
+     - On Ivory backgrounds: use Charcoal (#151515) for body/headings and Deep Gold (#8A6714) for accents.
+     - On Charcoal backgrounds: use Ivory (#F7F4EE) for body/headings and Brand Gold (#C79E22) for accents.
+  */
+  --text-primary-on-light: #151515;
+  --text-secondary-on-light: #525252;
+  --text-accent-on-light: #8A6714; /* Deep Gold for accessible contrast */
+  --text-primary-on-dark: #F7F4EE;
+  --text-secondary-on-dark: #B8B8B6;
+  --text-accent-on-dark: #C79E22;  /* Brand Gold */
+
+  /* Header Dimensions */
+  --header-height: 84px;
+
+  /* Containers & Layout Grid */
+  --container-max: 1440px;
+  --container-narrow: 1120px;
+  --container-reading: 760px;
+  --container-gutter: clamp(1.25rem, 4vw, 3.5rem);
+
+  /* Spacing Scale */
+  --section-space-y: clamp(4.5rem, 8vw, 8.5rem);
+  --section-inner-gap: clamp(2rem, 4vw, 4rem);
+
+  /* Borders & Dividers */
+  --border-light-subtle: rgba(21, 21, 21, 0.08);
+  --border-dark-subtle: rgba(247, 244, 238, 0.12);
+  --border-gold-subtle: rgba(199, 158, 34, 0.3);
+  --border-gold-solid: #C79E22;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-full: 9999px;
+
+  /* Fluid Typography Scale (using clamp) */
+  --font-size-display: clamp(2.75rem, 5.5vw + 1rem, 5.5rem);
+  --font-size-h1: clamp(2.25rem, 4vw + 0.75rem, 3.75rem);
+  --font-size-h2: clamp(1.75rem, 3vw + 0.5rem, 2.75rem);
+  --font-size-h3: clamp(1.35rem, 1.8vw + 0.4rem, 1.85rem);
+  --font-size-h4: clamp(1.15rem, 1.2vw + 0.3rem, 1.45rem);
+  --font-size-body-lg: clamp(1.05rem, 0.8vw + 0.4rem, 1.25rem);
+  --font-size-body: clamp(0.95rem, 0.4vw + 0.6rem, 1.05rem);
+  --font-size-caption: clamp(0.8rem, 0.3vw + 0.5rem, 0.875rem);
+  --font-size-micro: 0.75rem;
+
+  /* Motion & Easing */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 750ms;
+  --duration-deliberate: 1200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-normal: 0.01ms;
+    --duration-slow: 0.01ms;
+    --duration-deliberate: 0.01ms;
+  }
+}
+
