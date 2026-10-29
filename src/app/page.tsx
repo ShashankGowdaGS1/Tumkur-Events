@@ -9,6 +9,7 @@ import { EventProcessTimeline } from '@/components/sections/event-process-timeli
 import { CelebrationPackages } from '@/components/sections/celebration-packages';
 import { ClientStories } from '@/components/sections/client-stories';
 import { CelebrationFaq } from '@/components/sections/celebration-faq';
+import { FinalCelebrationCta } from '@/components/sections/final-celebration-cta';
 
 export default function HomePage() {
   return (
@@ -81,6 +82,14 @@ export default function HomePage() {
           and direct enquiry CTA.
          ========================================================================= */}
       <CelebrationFaq />
+
+      {/* =========================================================================
+          HOMEPAGE SECTION 11: FINAL CINEMATIC ENQUIRY CTA
+          "The Final Invitation" — Cinematic full-bleed photographic closing
+          experience with evening floral canopy, fluid editorial typography,
+          and direct enquiry attribution CTA.
+         ========================================================================= */}
+      <FinalCelebrationCta />
     </main>
   );
 }

@@ -35,3 +35,4 @@ export function FaqAccordion({ items, defaultActiveId = 'faq-01' }: FaqAccordion
     </div>
   );
 }
+

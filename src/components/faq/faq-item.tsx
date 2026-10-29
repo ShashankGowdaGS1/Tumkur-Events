@@ -103,3 +103,4 @@ export function FaqItemComponent({ item, isOpen, onToggle }: FaqItemProps) {
     </div>
   );
 }
+
