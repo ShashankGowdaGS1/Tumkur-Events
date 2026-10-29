@@ -92,3 +92,4 @@ export function JournalEditorial({ className }: { className?: string }) {
     </div>
   );
 }
+

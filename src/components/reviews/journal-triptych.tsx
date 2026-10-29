@@ -10,24 +10,31 @@ export interface JournalTriptychProps {
 /**
  * Editorial Photographic Triptych (55–60% of content width)
  *
- * Art-directed editorial spread combining:
- * 01 — Dominant event stage photograph (Left / 7 cols)
- * 02 — Detail close-up of ceremonial florals & brass lamps (Top Right / 5 cols)
- * 03 — Detail close-up of warm lighting & chandeliers (Bottom Right / 5 cols)
+ * Designed with magazine-grade visual layering and depth:
+ * 01 — Dominant event stage photograph with fine gold border and editorial caption
+ * 02 — Detail close-up of ceremonial florals & sacred samai lamps with subtle overlap
+ * 03 — Detail close-up of warm chandeliers & cascading roses
  *
- * Mobile: Main photograph with the two detail photos arranged side by side below it.
+ * Features:
+ * - Editorial figure indices (FIG. 01, FIG. 02, FIG. 03)
+ * - Fine gold hairlines between labels and captions
+ * - Subtly offset vertical detail column for authentic editorial depth
+ * - Mobile: Dominant image on top with side-by-side detail close-ups below
  */
 export function JournalTriptych({ className }: { className?: string }) {
   const [mainImage, detailImage1, detailImage2] = journalImages;
 
   return (
-    <div className={cn('w-full', className)}>
+    <div data-element="triptych-root" className={cn('w-full relative', className)}>
       {/* =======================================================================
-          DESKTOP EDITORIAL LAYOUT (lg:grid lg:grid-cols-12 gap-2.5 sm:gap-3)
+          DESKTOP EDITORIAL COMPOSITION (lg:grid lg:grid-cols-12 gap-3)
          ======================================================================= */}
-      <div className="hidden lg:grid grid-cols-12 gap-3 h-[520px] xl:h-[560px]">
-        {/* Dominant Event Photograph (7 columns) */}
-        <div className="col-span-7 relative h-full overflow-hidden rounded-xs border border-charcoal/15 bg-charcoal shadow-sm group">
+      <div className="hidden lg:grid grid-cols-12 gap-3 h-[520px] xl:h-[570px] relative">
+        {/* Dominant Main Photograph (7 columns) */}
+        <div
+          data-element="main-photo"
+          className="col-span-7 relative h-full overflow-hidden rounded-xs border border-charcoal/20 bg-charcoal shadow-sm group"
+        >
           <Image
             src={mainImage.src}
             alt={mainImage.alt}
@@ -36,24 +43,41 @@ export function JournalTriptych({ className }: { className?: string }) {
             priority
             className="object-cover transition-transform duration-700 ease-luxury group-hover:scale-102"
           />
+
+          {/* Vignette Gradient for Legibility */}
           <div
-            className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent pointer-events-none"
+            className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/20 to-transparent pointer-events-none"
             aria-hidden="true"
           />
-          <div className="absolute bottom-4 left-4 right-4 text-ivory z-10 pointer-events-none">
-            <span className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-gold block">
-              {mainImage.label}
+
+          {/* Top-Left Figure Index Badge */}
+          <div className="absolute top-4 left-4 z-10 pointer-events-none">
+            <span className="font-sans text-[10px] font-bold tracking-[0.25em] uppercase text-ivory/80 bg-charcoal/60 backdrop-blur-xs px-2.5 py-1 rounded-xs border border-ivory/10">
+              FIG. 01
             </span>
-            <span className="font-display text-sm text-ivory/90 block mt-0.5">
+          </div>
+
+          {/* Bottom Caption Overlay with Gold Hairline */}
+          <div className="absolute bottom-5 left-5 right-5 text-ivory z-10 pointer-events-none">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="h-px w-4 bg-gold" />
+              <span className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase text-gold">
+                {mainImage.label}
+              </span>
+            </div>
+            <h4 className="font-display text-base xl:text-lg text-ivory tracking-tight">
               {mainImage.caption}
-            </span>
+            </h4>
           </div>
         </div>
 
-        {/* Two Vertical Detail Photographs (5 columns) */}
-        <div className="col-span-5 flex flex-col gap-3 h-full">
-          {/* Detail 01: Ceremonial Florals & Brass Lamps */}
-          <div className="flex-1 relative overflow-hidden rounded-xs border border-charcoal/15 bg-charcoal shadow-sm group">
+        {/* Supporting Detail Photographs (5 columns) with Subtle Visual Layering */}
+        <div className="col-span-5 flex flex-col gap-3 h-full relative -ml-1 z-10">
+          {/* Detail Photo 01: Ceremonial Florals & Brass Samai */}
+          <div
+            data-element="detail-photo-1"
+            className="flex-1 relative overflow-hidden rounded-xs border border-charcoal/20 bg-charcoal shadow-sm group"
+          >
             <Image
               src={detailImage1.src}
               alt={detailImage1.alt}
@@ -62,21 +86,33 @@ export function JournalTriptych({ className }: { className?: string }) {
               className="object-cover transition-transform duration-700 ease-luxury group-hover:scale-103"
             />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent pointer-events-none"
+              className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent pointer-events-none"
               aria-hidden="true"
             />
-            <div className="absolute bottom-3 left-3 right-3 text-ivory z-10 pointer-events-none">
+
+            {/* Figure Tag */}
+            <div className="absolute top-3 left-3 z-10 pointer-events-none">
+              <span className="font-sans text-[9px] font-bold tracking-[0.22em] uppercase text-ivory/80 bg-charcoal/60 backdrop-blur-xs px-2 py-0.5 rounded-xs border border-ivory/10">
+                FIG. 02
+              </span>
+            </div>
+
+            {/* Caption */}
+            <div className="absolute bottom-3.5 left-3.5 right-3.5 text-ivory z-10 pointer-events-none">
               <span className="font-sans text-[9px] font-bold tracking-[0.2em] uppercase text-gold block">
                 {detailImage1.label}
               </span>
-              <span className="font-sans text-xs text-ivory/85 block mt-0.5 line-clamp-1">
+              <p className="font-sans text-xs text-ivory/90 mt-0.5 line-clamp-1">
                 {detailImage1.caption}
-              </span>
+              </p>
             </div>
           </div>
 
-          {/* Detail 02: Warm Lighting & Chandeliers */}
-          <div className="flex-1 relative overflow-hidden rounded-xs border border-charcoal/15 bg-charcoal shadow-sm group">
+          {/* Detail Photo 02: Warm Ambience & Chandeliers */}
+          <div
+            data-element="detail-photo-2"
+            className="flex-1 relative overflow-hidden rounded-xs border border-charcoal/20 bg-charcoal shadow-sm group"
+          >
             <Image
               src={detailImage2.src}
               alt={detailImage2.alt}
@@ -85,27 +121,39 @@ export function JournalTriptych({ className }: { className?: string }) {
               className="object-cover transition-transform duration-700 ease-luxury group-hover:scale-103"
             />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent pointer-events-none"
+              className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent pointer-events-none"
               aria-hidden="true"
             />
-            <div className="absolute bottom-3 left-3 right-3 text-ivory z-10 pointer-events-none">
+
+            {/* Figure Tag */}
+            <div className="absolute top-3 left-3 z-10 pointer-events-none">
+              <span className="font-sans text-[9px] font-bold tracking-[0.22em] uppercase text-ivory/80 bg-charcoal/60 backdrop-blur-xs px-2 py-0.5 rounded-xs border border-ivory/10">
+                FIG. 03
+              </span>
+            </div>
+
+            {/* Caption */}
+            <div className="absolute bottom-3.5 left-3.5 right-3.5 text-ivory z-10 pointer-events-none">
               <span className="font-sans text-[9px] font-bold tracking-[0.2em] uppercase text-gold block">
                 {detailImage2.label}
               </span>
-              <span className="font-sans text-xs text-ivory/85 block mt-0.5 line-clamp-1">
+              <p className="font-sans text-xs text-ivory/90 mt-0.5 line-clamp-1">
                 {detailImage2.caption}
-              </span>
+              </p>
             </div>
           </div>
         </div>
       </div>
 
       {/* =======================================================================
-          MOBILE & TABLET EDITORIAL LAYOUT (< 1024px)
+          MOBILE & TABLET EDITORIAL COMPOSITION (< 1024px)
          ======================================================================= */}
       <div className="lg:hidden flex flex-col gap-2.5">
         {/* Dominant Photograph on top */}
-        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] overflow-hidden rounded-xs border border-charcoal/15 bg-charcoal shadow-sm">
+        <div
+          data-element="main-photo-mobile"
+          className="relative w-full aspect-[16/10] sm:aspect-[16/9] overflow-hidden rounded-xs border border-charcoal/20 bg-charcoal shadow-sm"
+        >
           <Image
             src={mainImage.src}
             alt={mainImage.alt}
@@ -115,9 +163,14 @@ export function JournalTriptych({ className }: { className?: string }) {
             className="object-cover"
           />
           <div
-            className="absolute inset-0 bg-gradient-to-t from-charcoal/75 via-transparent to-transparent pointer-events-none"
+            className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent pointer-events-none"
             aria-hidden="true"
           />
+          <div className="absolute top-3 left-3 z-10 pointer-events-none">
+            <span className="font-sans text-[9px] font-bold tracking-[0.25em] uppercase text-ivory/80 bg-charcoal/60 px-2 py-0.5 rounded-xs">
+              FIG. 01
+            </span>
+          </div>
           <div className="absolute bottom-3.5 left-4 right-4 text-ivory z-10 pointer-events-none">
             <span className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-gold block">
               {mainImage.label}
@@ -130,7 +183,7 @@ export function JournalTriptych({ className }: { className?: string }) {
 
         {/* Two Detail Photographs side-by-side */}
         <div className="grid grid-cols-2 gap-2.5">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xs border border-charcoal/15 bg-charcoal shadow-sm">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xs border border-charcoal/20 bg-charcoal shadow-sm">
             <Image
               src={detailImage1.src}
               alt={detailImage1.alt}
@@ -139,7 +192,7 @@ export function JournalTriptych({ className }: { className?: string }) {
               className="object-cover"
             />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent pointer-events-none"
+              className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-transparent to-transparent pointer-events-none"
               aria-hidden="true"
             />
             <div className="absolute bottom-2.5 left-2.5 right-2.5 text-ivory z-10 pointer-events-none">
@@ -149,7 +202,7 @@ export function JournalTriptych({ className }: { className?: string }) {
             </div>
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xs border border-charcoal/15 bg-charcoal shadow-sm">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xs border border-charcoal/20 bg-charcoal shadow-sm">
             <Image
               src={detailImage2.src}
               alt={detailImage2.alt}
@@ -158,7 +211,7 @@ export function JournalTriptych({ className }: { className?: string }) {
               className="object-cover"
             />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent pointer-events-none"
+              className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-transparent to-transparent pointer-events-none"
               aria-hidden="true"
             />
             <div className="absolute bottom-2.5 left-2.5 right-2.5 text-ivory z-10 pointer-events-none">
