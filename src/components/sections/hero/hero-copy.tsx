@@ -19,13 +19,9 @@ interface HeroCopyProps {
  * - Chapter 04: RIGHT ("Made Unforgettable.")
  *
  * Mobile Responsiveness:
- * - On narrow screens (< 1024px), chapters retain natural left alignment.
+ * - All 4 chapters remain accessible on mobile, orchestrated in sync with video/touch scroll.
+ * - On narrow screens (< 1024px), chapters retain natural left alignment with readable contrast.
  * - On desktop (>= 1024px), alternating LEFT/RIGHT layout engages the photography.
- *
- * Directional Motion:
- * - Left chapters transition with subtle horizontal movement from/to the left (-30px).
- * - Right chapters transition with subtle horizontal movement from/to the right (+30px).
- * - Inactive chapters enforce pointer-events: none so buttons never intercept clicks inappropriately.
  */
 export function HeroCopy({ chapterRefs }: HeroCopyProps) {
   return (
@@ -40,30 +36,30 @@ export function HeroCopy({ chapterRefs }: HeroCopyProps) {
       </div>
 
       {/* Top spacing to clear fixed navbar height */}
-      <div className="h-20 sm:h-24" aria-hidden="true" />
+      <div className="h-16 sm:h-20 lg:h-24 shrink-0" aria-hidden="true" />
 
       {/* Main Chapter Content Area */}
-      <div className="container-luxury mx-auto flex-1 flex items-center relative pb-16 lg:pb-24">
+      <div className="container-luxury mx-auto flex-1 flex items-center relative pb-12 sm:pb-16 lg:pb-24">
         {heroConfig.chapters.map((chapter, index) => {
           const isFirst = chapter.id === 1;
           const isRightAligned = chapter.alignment === 'right';
 
-          // Desktop alternating alignment classes
+          // Alignment classes: clean left alignment on mobile; alternating on desktop
           const containerAlignmentClass = isRightAligned
             ? 'max-w-[560px] text-left items-start lg:text-right lg:items-end lg:ml-auto'
             : 'max-w-[560px] text-left items-start';
 
           const paragraphAlignmentClass = isRightAligned
-            ? 'mt-4 max-w-lg font-light text-silver drop-shadow-sm text-balance text-left lg:text-right lg:ml-auto'
-            : 'mt-4 max-w-lg font-light text-silver drop-shadow-sm text-balance text-left';
+            ? 'mt-3 sm:mt-4 max-w-lg font-light text-silver drop-shadow-sm text-balance text-left lg:text-right lg:ml-auto text-sm sm:text-base lg:text-fluid-body-lg'
+            : 'mt-3 sm:mt-4 max-w-lg font-light text-silver drop-shadow-sm text-balance text-left text-sm sm:text-base lg:text-fluid-body-lg';
 
           const ctaAlignmentClass = isRightAligned
-            ? 'mt-8 flex flex-wrap items-center gap-4 pointer-events-auto justify-start lg:justify-end'
-            : 'mt-8 flex flex-wrap items-center gap-4 pointer-events-auto justify-start';
+            ? 'mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 pointer-events-auto justify-start lg:justify-end w-full sm:w-auto'
+            : 'mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 pointer-events-auto justify-start w-full sm:w-auto';
 
           const badgeRowClass = isRightAligned
-            ? 'mb-4 inline-flex items-center gap-2 lg:flex-row-reverse'
-            : 'mb-4 inline-flex items-center gap-2';
+            ? 'mb-3 sm:mb-4 inline-flex items-center gap-2 lg:flex-row-reverse'
+            : 'mb-3 sm:mb-4 inline-flex items-center gap-2';
 
           return (
             <div
@@ -78,18 +74,18 @@ export function HeroCopy({ chapterRefs }: HeroCopyProps) {
                 transform: isFirst
                   ? 'translate3d(0, 0, 0)'
                   : isRightAligned
-                  ? 'translate3d(30px, 0, 0)'
-                  : 'translate3d(-30px, 0, 0)',
+                  ? 'translate3d(24px, 0, 0)'
+                  : 'translate3d(-24px, 0, 0)',
                 pointerEvents: isFirst ? 'auto' : 'none',
                 willChange: 'transform, opacity',
               }}
               className={`absolute inset-x-0 flex flex-col justify-center ${containerAlignmentClass} ${
                 isFirst ? 'z-20' : 'z-10'
-              } lg:flex ${isFirst ? 'flex' : 'hidden lg:flex'}`}
+              }`}
             >
               {/* Luxury Overline Badge */}
               <div className={badgeRowClass}>
-                <span className="overline-luxury text-gold">
+                <span className="overline-luxury text-gold text-[10px] sm:text-xs">
                   {`Chapter 0${chapter.id} \u2014 ${chapter.title}`}
                 </span>
                 <span className="h-[1px] w-8 bg-gold/50" aria-hidden="true" />
@@ -97,17 +93,17 @@ export function HeroCopy({ chapterRefs }: HeroCopyProps) {
 
               {/* Main Chapter Statement */}
               {chapter.isSemanticH1 ? (
-                <h1 className="text-fluid-display font-display text-ivory tracking-tight drop-shadow-md text-balance">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-fluid-display font-display text-ivory tracking-tight drop-shadow-md text-balance leading-[1.12]">
                   {chapter.statement}
                 </h1>
               ) : (
-                <p className="text-fluid-display font-display text-ivory tracking-tight drop-shadow-md text-balance">
+                <p className="text-3xl sm:text-4xl md:text-5xl lg:text-fluid-display font-display text-ivory tracking-tight drop-shadow-md text-balance leading-[1.12]">
                   {chapter.statement}
                 </p>
               )}
 
               {/* Supporting Editorial Description */}
-              <p className={`text-fluid-body-lg ${paragraphAlignmentClass}`}>
+              <p className={paragraphAlignmentClass}>
                 {chapter.supportingText}
               </p>
 
@@ -117,9 +113,9 @@ export function HeroCopy({ chapterRefs }: HeroCopyProps) {
                   {chapter.primaryCta && (
                     <Link
                       href={chapter.primaryCta.href}
-                      className="group inline-flex items-center gap-2 rounded-xs bg-gold px-6 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-charcoal border border-gold shadow-md transition-all duration-fast hover:bg-gold-hover hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-gold"
+                      className="group inline-flex items-center justify-center gap-2 rounded-xs bg-gold px-6 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-charcoal border border-gold shadow-md transition-all duration-fast hover:bg-gold-hover active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-gold text-center"
                     >
-                      <Sparkles className="h-4 w-4 text-charcoal transition-transform duration-normal ease-luxury group-hover:rotate-12" />
+                      <Sparkles className="h-4 w-4 text-charcoal transition-transform duration-normal ease-luxury group-hover:rotate-12 shrink-0" />
                       <span>{chapter.primaryCta.label}</span>
                     </Link>
                   )}
@@ -127,10 +123,10 @@ export function HeroCopy({ chapterRefs }: HeroCopyProps) {
                   {chapter.secondaryCta && (
                     <Link
                       href={chapter.secondaryCta.href}
-                      className="group inline-flex items-center gap-2 rounded-xs border border-ivory/40 bg-charcoal/40 backdrop-blur-sm px-6 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-ivory transition-all duration-fast hover:border-gold hover:text-gold hover:bg-charcoal/60 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-gold"
+                      className="group inline-flex items-center justify-center gap-2 rounded-xs border border-ivory/40 bg-charcoal/40 backdrop-blur-sm px-6 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-ivory transition-all duration-fast hover:border-gold hover:text-gold hover:bg-charcoal/60 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-gold text-center"
                     >
                       <span>{chapter.secondaryCta.label}</span>
-                      <ArrowRight className="h-4 w-4 transition-transform duration-fast group-hover:translate-x-1" />
+                      <ArrowRight className="h-4 w-4 transition-transform duration-fast group-hover:translate-x-1 shrink-0" />
                     </Link>
                   )}
                 </div>
@@ -141,7 +137,7 @@ export function HeroCopy({ chapterRefs }: HeroCopyProps) {
       </div>
 
       {/* Bottom Padding */}
-      <div className="h-10 sm:h-14" aria-hidden="true" />
+      <div className="h-8 sm:h-12" aria-hidden="true" />
     </div>
   );
 }

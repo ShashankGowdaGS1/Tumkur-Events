@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { gsap, ScrollTrigger, registerGsapPlugins } from '@/lib/gsap';
 import { heroConfig } from '@/config/hero';
 
@@ -24,15 +24,12 @@ export interface UseHeroScrollReturn {
 /**
  * Authoritative Unified GSAP ScrollTrigger Controller for the Cinematic Hero
  *
- * Alternating Chapter Directional Choreography:
- * - Chapter 01 (LEFT):  Reveals at x: 0, exits leftward (x: -30px). Left scrim active.
- * - Chapter 02 (RIGHT): Reveals from right (x: +30px), exits rightward (x: +30px). Right scrim active.
- * - Chapter 03 (LEFT):  Reveals from left (x: -30px), exits leftward (x: -30px). Left scrim active.
- * - Chapter 04 (RIGHT): Reveals from right (x: +30px), settles in place. Right scrim active.
- *
- * Localized Readability Scrims:
- * - Left and right directional gradients smoothly crossfade in sync with active chapter alignment,
- *   preserving vibrant footage in the center and opposite side.
+ * Fully supports both Desktop and Mobile devices:
+ * - Desktop: 4-chapter synchronized scrollytelling with alternating Left/Right choreography
+ *   and directional readability scrims (scroll multiplier: 3.5).
+ * - Mobile: Calibrated touch-responsive 4-chapter pinned journey (scroll multiplier: 2.2, scrub: 0.5)
+ *   ensuring complete video scrubbing, chapter progression, and fluid pin release.
+ * - Reduced Motion: Single-viewport accessible static view without pinning.
  */
 export function useHeroScroll({
   heroSectionRef,
@@ -81,15 +78,17 @@ export function useHeroScroll({
     mm.add(
       {
         isDesktop: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)',
-        isMobileOrReduced: '(max-width: 1023px), (prefers-reduced-motion: reduce)',
+        isMobile: '(max-width: 1023px) and (prefers-reduced-motion: no-preference)',
+        isReducedMotion: '(prefers-reduced-motion: reduce)',
       },
       (context) => {
-        const { isDesktop } = context.conditions as {
+        const { isDesktop, isMobile } = context.conditions as {
           isDesktop: boolean;
-          isMobileOrReduced: boolean;
+          isMobile: boolean;
+          isReducedMotion: boolean;
         };
 
-        if (isDesktop) {
+        if (isDesktop || isMobile) {
           const duration =
             video && video.duration > 0 ? video.duration : heroConfig.media.nominalDuration;
 
@@ -150,15 +149,24 @@ export function useHeroScroll({
             new CustomEvent('tumkur:hero-state', { detail: { isScrolled: false } })
           );
 
+          // Calibrate scroll travel and scrub duration for desktop vs touch mobile
+          const scrollMultiplier = isDesktop
+            ? heroConfig.scroll.scrollMultiplier
+            : 2.2; // Optimized touch travel distance for mobile
+
+          const scrubSmoothing = isDesktop
+            ? heroConfig.scroll.scrubSmoothing
+            : 0.4; // Snappy touch scrub on mobile
+
           // Single Authoritative Master Timeline with ScrollTrigger Pinning
           const masterTl = gsap.timeline({
             scrollTrigger: {
               trigger: heroSection,
               start: 'top top',
-              end: () => '+=' + window.innerHeight * heroConfig.scroll.scrollMultiplier,
+              end: () => '+=' + Math.round(window.innerHeight * scrollMultiplier),
               pin: true,
               pinSpacing: true,
-              scrub: heroConfig.scroll.scrubSmoothing,
+              scrub: scrubSmoothing,
               anticipatePin: 1,
               invalidateOnRefresh: true,
               onUpdate: (self) => {
@@ -210,7 +218,6 @@ export function useHeroScroll({
           });
 
           // Master Timeline Chapter & Scrim Animations
-          // Choreographed across 100 timeline units representing 0% to 100% progress
           const ch1 = chapterRefs.current[0];
           const ch2 = chapterRefs.current[1];
           const ch3 = chapterRefs.current[2];
@@ -218,71 +225,85 @@ export function useHeroScroll({
           const leftScrim = leftScrimRef?.current;
           const rightScrim = rightScrimRef?.current;
 
-          if (ch1 && ch2 && ch3 && ch4) {
-            // Chapter 1 (LEFT): Active on page load (x: 0, opacity: 1)
-            // Left scrim active on page load (opacity: 1)
-            // Scene 1 (Magical Doorway): 0.0s to 3.0s (Progress 0.0 to 0.17)
+          const travelOffset = isDesktop ? 30 : 20;
 
-            // Transition from Chapter 1 (LEFT) to Chapter 2 (RIGHT):
+          if (ch1 && ch2 && ch3 && ch4) {
+            // Chapter 1 (Active on load) -> Chapter 2
             masterTl.to(
               ch1,
-              { opacity: 0, x: -30, duration: 4, ease: 'power1.out', pointerEvents: 'none' },
+              {
+                opacity: 0,
+                x: -travelOffset,
+                duration: 4,
+                ease: 'power1.out',
+                pointerEvents: 'none',
+              },
               16
             );
-            if (leftScrim && rightScrim) {
+            if (isDesktop && leftScrim && rightScrim) {
               masterTl.to(leftScrim, { opacity: 0, duration: 6, ease: 'power1.out' }, 17);
               masterTl.to(rightScrim, { opacity: 1, duration: 6, ease: 'power1.out' }, 17);
             }
 
-            // Chapter 2 (RIGHT): Enters from right (+30px) as pastel birthday garden is established
-            // Scene 2 (Outdoor Pastel Birthday): 3.2s to 9.0s (Progress 0.18 to 0.50)
+            // Chapter 2 Enters
             masterTl.fromTo(
               ch2,
-              { opacity: 0, x: 30, pointerEvents: 'none' },
+              { opacity: 0, x: travelOffset, pointerEvents: 'none' },
               { opacity: 1, x: 0, duration: 4, ease: 'power1.out', pointerEvents: 'auto' },
               22
             );
 
-            // Transition from Chapter 2 (RIGHT) to Chapter 3 (LEFT):
+            // Chapter 2 -> Chapter 3
             masterTl.to(
               ch2,
-              { opacity: 0, x: 30, duration: 4, ease: 'power1.out', pointerEvents: 'none' },
+              {
+                opacity: 0,
+                x: travelOffset,
+                duration: 4,
+                ease: 'power1.out',
+                pointerEvents: 'none',
+              },
               46
             );
-            if (leftScrim && rightScrim) {
+            if (isDesktop && leftScrim && rightScrim) {
               masterTl.to(rightScrim, { opacity: 0, duration: 6, ease: 'power1.out' }, 47);
               masterTl.to(leftScrim, { opacity: 1, duration: 6, ease: 'power1.out' }, 47);
             }
 
-            // Chapter 3 (LEFT): Enters from left (-30px) as lotus stage is established
-            // Scene 3 (Illuminated Lotus Stage): 9.2s to 14.8s (Progress 0.51 to 0.82)
+            // Chapter 3 Enters
             masterTl.fromTo(
               ch3,
-              { opacity: 0, x: -30, pointerEvents: 'none' },
+              { opacity: 0, x: -travelOffset, pointerEvents: 'none' },
               { opacity: 1, x: 0, duration: 4, ease: 'power1.out', pointerEvents: 'auto' },
               53
             );
 
-            // Transition from Chapter 3 (LEFT) to Chapter 4 (RIGHT):
+            // Chapter 3 -> Chapter 4
             masterTl.to(
               ch3,
-              { opacity: 0, x: -30, duration: 4, ease: 'power1.out', pointerEvents: 'none' },
+              {
+                opacity: 0,
+                x: -travelOffset,
+                duration: 4,
+                ease: 'power1.out',
+                pointerEvents: 'none',
+              },
               77
             );
-            if (leftScrim && rightScrim) {
+            if (isDesktop && leftScrim && rightScrim) {
               masterTl.to(leftScrim, { opacity: 0, duration: 6, ease: 'power1.out' }, 78);
               masterTl.to(rightScrim, { opacity: 1, duration: 6, ease: 'power1.out' }, 78);
             }
 
-            // Chapter 4 (RIGHT): Enters from right (+30px) as grand wedding hall & chandeliers are established
-            // Scene 4 (Grand Floral Wedding Venue): 15.0s to 17.88s (Progress 0.84 to 1.00)
+            // Chapter 4 Enters
             masterTl.fromTo(
               ch4,
-              { opacity: 0, x: 30, pointerEvents: 'none' },
+              { opacity: 0, x: travelOffset, pointerEvents: 'none' },
               { opacity: 1, x: 0, duration: 4, ease: 'power1.out', pointerEvents: 'auto' },
               84
             );
-            // Settle and hold Chapter 4 until the timeline completes:
+
+            // Settle and hold Chapter 4 until pin release
             masterTl.to({}, { duration: 12 }, 88);
           }
 
@@ -291,8 +312,7 @@ export function useHeroScroll({
             video?.removeEventListener('seeked', handleSeeked);
           };
         } else {
-          // Mobile & Reduced Motion
-          // Single-viewport hero without pinning; trigger toggles navbar at exit
+          // Reduced Motion fallback: Static presentation, toggle navbar at boundary
           ScrollTrigger.create({
             trigger: heroSection,
             start: 'top top',
