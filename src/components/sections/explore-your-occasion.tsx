@@ -56,8 +56,25 @@ export function ExploreYourOccasion() {
   const chapter3TextRef = useRef<HTMLDivElement>(null);
   const chapter4TextRef = useRef<HTMLDivElement>(null);
 
+  // Mobile Showcase Stage Refs (< 1024px)
+  const mobileShowcaseContainerRef = useRef<HTMLDivElement>(null);
+  const mScene1Ref = useRef<HTMLDivElement>(null);
+  const mScene2Ref = useRef<HTMLDivElement>(null);
+  const mScene3Ref = useRef<HTMLDivElement>(null);
+  const mScene4Ref = useRef<HTMLDivElement>(null);
+
+  const mText1Ref = useRef<HTMLDivElement>(null);
+  const mText2Ref = useRef<HTMLDivElement>(null);
+  const mText3Ref = useRef<HTMLDivElement>(null);
+  const mText4Ref = useRef<HTMLDivElement>(null);
+
+  const mImg2Ref = useRef<HTMLDivElement>(null);
+  const mImg3Ref = useRef<HTMLDivElement>(null);
+  const mImg4Ref = useRef<HTMLDivElement>(null);
+
   // Active chapter state for HUD indicator and accessibility
   const [activeChapterIndex, setActiveChapterIndex] = useState<number>(0);
+  const [activeMobileChapterIndex, setActiveMobileChapterIndex] = useState<number>(0);
 
   // Additional Categories state for hover/focus preview
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0);
@@ -238,6 +255,149 @@ export function ExploreYourOccasion() {
       masterTl.to({}, { duration: 1.0 });
     });
 
+    // =========================================================================
+    // 3. MOBILE PINNED "CELEBRATION JOURNEY" SHOWCASE (< 1024px)
+    // =========================================================================
+    mm.add('(max-width: 1023px)', () => {
+      const stage = mobileShowcaseContainerRef.current;
+      const s1 = mScene1Ref.current;
+      const s2 = mScene2Ref.current;
+      const s3 = mScene3Ref.current;
+      const s4 = mScene4Ref.current;
+
+      const t1 = mText1Ref.current;
+      const t2 = mText2Ref.current;
+      const t3 = mText3Ref.current;
+      const t4 = mText4Ref.current;
+
+      const img2 = mImg2Ref.current;
+      const img3 = mImg3Ref.current;
+      const img4 = mImg4Ref.current;
+
+      if (!stage || !s1 || !s2 || !s3 || !s4) return;
+
+      if (isReduced) {
+        gsap.set(stage, { height: 'auto', minHeight: 'auto', overflow: 'visible' });
+        gsap.set([s1, s2, s3, s4], {
+          position: 'relative',
+          height: '480px',
+          marginBottom: '20px',
+          xPercent: 0,
+          autoAlpha: 1,
+          clearProps: 'transform',
+        });
+        return;
+      }
+
+      // Initial States
+      // Scene 01 is active immediately (no initial blank frame)
+      gsap.set(s1, { xPercent: 0, autoAlpha: 1, zIndex: 10 });
+      if (t1) gsap.set(t1, { opacity: 1, y: 0 });
+
+      // Scene 02 waiting offscreen RIGHT (+100%)
+      gsap.set(s2, { xPercent: 100, autoAlpha: 0, zIndex: 20 });
+      if (t2) gsap.set(t2, { opacity: 0, y: 15 });
+      if (img2) gsap.set(img2, { scale: 1.08 });
+
+      // Scene 03 waiting offscreen LEFT (-100%)
+      gsap.set(s3, { xPercent: -100, autoAlpha: 0, zIndex: 30 });
+      if (t3) gsap.set(t3, { opacity: 0, y: 15 });
+      if (img3) gsap.set(img3, { scale: 1.08 });
+
+      // Scene 04 waiting offscreen RIGHT (+100%)
+      gsap.set(s4, { xPercent: 100, autoAlpha: 0, zIndex: 40 });
+      if (t4) gsap.set(t4, { opacity: 0, y: 15 });
+      if (img4) gsap.set(img4, { scale: 1.08 });
+
+      const mobileTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: stage,
+          start: 'top top',
+          end: () => '+=' + Math.round(window.innerHeight * 2.2),
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const p = self.progress;
+            let idx = 0;
+            if (p >= 0.75) idx = 3;
+            else if (p >= 0.48) idx = 2;
+            else if (p >= 0.20) idx = 1;
+            else idx = 0;
+            setActiveMobileChapterIndex(idx);
+          },
+        },
+      });
+
+      // --- TRANSITION 1: Scene 01 exits LEFT, Scene 02 enters from RIGHT ---
+      if (t1) {
+        mobileTl.to(t1, { opacity: 0, x: -20, duration: 0.35, ease: 'power1.out' }, 0.8);
+      }
+      mobileTl
+        .to(s1, { xPercent: -30, duration: 1.0, ease: 'power2.inOut' }, 0.8)
+        .fromTo(
+          s2,
+          { xPercent: 100, autoAlpha: 0 },
+          { xPercent: 0, autoAlpha: 1, duration: 1.0, ease: 'power2.inOut' },
+          0.8
+        )
+        .set(s1, { autoAlpha: 0 }, 1.8);
+
+      if (img2) {
+        mobileTl.to(img2, { scale: 1.0, duration: 1.0, ease: 'power2.out' }, 0.8);
+      }
+      if (t2) {
+        mobileTl.to(t2, { opacity: 1, y: 0, duration: 0.45, ease: 'power1.out' }, 1.35);
+      }
+
+      // --- TRANSITION 2: Reverse direction! Scene 02 exits RIGHT, Scene 03 enters from LEFT ---
+      if (t2) {
+        mobileTl.to(t2, { opacity: 0, x: 20, duration: 0.35, ease: 'power1.out' }, 2.6);
+      }
+      mobileTl
+        .to(s2, { xPercent: 30, duration: 1.0, ease: 'power2.inOut' }, 2.6)
+        .fromTo(
+          s3,
+          { xPercent: -100, autoAlpha: 0 },
+          { xPercent: 0, autoAlpha: 1, duration: 1.0, ease: 'power2.inOut' },
+          2.6
+        )
+        .set(s2, { autoAlpha: 0 }, 3.6);
+
+      if (img3) {
+        mobileTl.to(img3, { scale: 1.0, duration: 1.0, ease: 'power2.out' }, 2.6);
+      }
+      if (t3) {
+        mobileTl.to(t3, { opacity: 1, y: 0, duration: 0.45, ease: 'power1.out' }, 3.15);
+      }
+
+      // --- TRANSITION 3: Alternate direction again! Scene 03 exits LEFT, Scene 04 enters from RIGHT ---
+      if (t3) {
+        mobileTl.to(t3, { opacity: 0, x: -20, duration: 0.35, ease: 'power1.out' }, 4.4);
+      }
+      mobileTl
+        .to(s3, { xPercent: -30, duration: 1.0, ease: 'power2.inOut' }, 4.4)
+        .fromTo(
+          s4,
+          { xPercent: 100, autoAlpha: 0 },
+          { xPercent: 0, autoAlpha: 1, duration: 1.0, ease: 'power2.inOut' },
+          4.4
+        )
+        .set(s3, { autoAlpha: 0 }, 5.4);
+
+      if (img4) {
+        mobileTl.to(img4, { scale: 1.0, duration: 1.0, ease: 'power2.out' }, 4.4);
+      }
+      if (t4) {
+        mobileTl.to(t4, { opacity: 1, y: 0, duration: 0.45, ease: 'power1.out' }, 4.95);
+      }
+
+      // Hold Scene 04 settled until unpin release
+      mobileTl.to({}, { duration: 0.8 });
+    });
+
     return () => {
       mm.revert();
     };
@@ -259,7 +419,7 @@ export function ExploreYourOccasion() {
           PART A: SECTION INTRODUCTION
           Compact, editorial statement with balanced vertical whitespace.
          ========================================================================= */}
-      <div className="container-luxury mx-auto px-6 sm:px-10 lg:px-16 pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-14">
+      <div className="container-luxury mx-auto px-6 sm:px-10 lg:px-16 pt-12 sm:pt-16 lg:pt-28 pb-6 sm:pb-8 lg:pb-14">
         {/* Eyebrow Label with Deep Gold Rule */}
         <div ref={introEyebrowRef} className="inline-flex items-center gap-3 mb-5 sm:mb-6">
           <span className="overline-luxury text-gold-deep text-[11px] sm:text-xs">
@@ -650,67 +810,295 @@ export function ExploreYourOccasion() {
       </div>
 
       {/* =========================================================================
-          MOBILE & TABLET FALLBACK (< 1024px)
-          Compact, naturally scrolling stack with alternating layout and NO scroll pinning.
+          PART B (MOBILE & TABLET: < 1024px): "THE CELEBRATION JOURNEY"
+          Pinned cinematic scroll-controlled event showcase:
+          - Stage pinned under fixed navbar (h-20 sm:h-[84px]).
+          - Fixed viewport height (100svh) to prevent address-bar jitter.
+          - Edge-to-edge full-width photography with rich bottom scrim gradient.
+          - 01 -> 02: reveals from RIGHT, exits LEFT
+          - 02 -> 03: reveals from LEFT, exits RIGHT (reversed)
+          - 03 -> 04: reveals from RIGHT, exits LEFT (alternating)
+          - Subtle image parallax & scale, isolated heading/text transitions.
+          - 100% reversible on upward scroll.
          ========================================================================= */}
-      <div className="lg:hidden space-y-16 px-6 sm:px-10 py-10 border-t border-charcoal/10">
-        {featuredEvents.map((evt) => (
-          <div key={evt.id} className="flex flex-col space-y-6">
-            {/* Compact Event Photography */}
-            <div className="relative w-full h-[280px] sm:h-[360px] overflow-hidden border border-charcoal/10 bg-ivory-subtle">
-              <Image
-                src={evt.image}
-                alt={evt.imageAlt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center"
-                priority={false}
-              />
-            </div>
-
-            {/* Event Typography */}
-            <div>
-              <div className="flex items-center gap-3 mb-2.5">
-                <span className="font-mono text-xs font-semibold text-gold-deep uppercase">
-                  {evt.number}
+      <div
+        ref={mobileShowcaseContainerRef}
+        className="lg:hidden relative w-full h-[100svh] min-h-[560px] max-h-[920px] bg-ivory text-charcoal overflow-hidden border-y border-charcoal/10"
+      >
+        {/* Fixed Navbar Safe Area Offset (80px on mobile, 84px on sm/tablet) */}
+        <div className="relative w-full h-full pt-20 sm:pt-[84px] box-border p-3.5 sm:p-6 pb-4 sm:pb-6">
+          <div className="relative w-full h-full max-w-2xl mx-auto overflow-hidden rounded-2xl sm:rounded-3xl border border-charcoal/15 bg-charcoal shadow-[0_12px_44px_rgba(21,21,21,0.12)]">
+            {/* Top HUD Chapter Indicator (Persistent across scenes) */}
+            <div className="absolute top-4 left-4 right-4 z-30 flex items-center justify-between pointer-events-none">
+              <div className="flex items-center gap-2 bg-charcoal/75 backdrop-blur-md px-3 py-1.5 rounded-full border border-ivory/15 shadow-sm">
+                <span className="font-mono text-xs font-semibold text-gold">
+                  0{activeMobileChapterIndex + 1}
                 </span>
-                <span className="text-charcoal/30">&middot;</span>
-                <span className="overline-luxury text-gold-deep text-[11px]">
-                  {evt.category}
-                </span>
+                <span className="text-ivory/30 text-xs">/</span>
+                <span className="font-mono text-xs text-ivory/60">04</span>
               </div>
 
-              <h3 className="font-display text-2xl sm:text-3xl text-charcoal tracking-tight mb-3 whitespace-pre-line">
-                {evt.headline}
-              </h3>
-
-              <p className="font-sans text-sm sm:text-base text-charcoal/80 font-light leading-relaxed mb-5">
-                {evt.description}
-              </p>
-
-              <Link
-                href={evt.href}
-                className="group inline-flex items-center gap-2 font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-charcoal transition-colors duration-fast hover:text-gold-deep"
-              >
-                <span className="relative py-0.5">
-                  {evt.ctaText}
+              <div className="flex items-center gap-1.5 bg-charcoal/75 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-ivory/15">
+                {[0, 1, 2, 3].map((idx) => (
                   <span
-                    className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-gold transition-all duration-normal ease-luxury group-hover:w-full"
+                    key={idx}
+                    className={`block h-1.5 rounded-full transition-all duration-300 ease-out ${
+                      activeMobileChapterIndex === idx
+                        ? 'w-6 bg-gold'
+                        : 'w-1.5 bg-ivory/30'
+                    }`}
                     aria-hidden="true"
                   />
-                </span>
-                <ArrowUpRight className="h-4 w-4 text-gold-deep" aria-hidden="true" />
-              </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* -----------------------------------------------------------------
+                MOBILE SCENE 01: BIRTHDAYS & KIDS' CELEBRATIONS
+               ----------------------------------------------------------------- */}
+            <div
+              ref={mScene1Ref}
+              aria-hidden={activeMobileChapterIndex !== 0}
+              className={`absolute inset-0 w-full h-full overflow-hidden will-change-transform ${
+                activeMobileChapterIndex === 0 ? 'pointer-events-auto' : 'pointer-events-none'
+              }`}
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src={event1.image}
+                  alt={event1.imageAlt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-center select-none"
+                  priority={false}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 via-45% to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-charcoal/70 via-charcoal/30 to-transparent pointer-events-none" />
+
+                <div
+                  ref={mText1Ref}
+                  className="absolute inset-x-0 bottom-0 p-5 sm:p-8 flex flex-col justify-end will-change-transform z-20"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-mono text-xs font-semibold text-gold tracking-widest uppercase">
+                      {event1.number}
+                    </span>
+                    <span className="text-ivory/30">&middot;</span>
+                    <span className="overline-luxury text-gold-light text-[10px] tracking-[0.16em]">
+                      {event1.category}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-ivory text-[clamp(1.5rem,5.5vw,2.4rem)] leading-[1.12] tracking-tight mb-2 whitespace-pre-line drop-shadow-sm">
+                    {event1.headline}
+                  </h3>
+
+                  <p className="font-sans text-xs sm:text-sm text-ivory/80 font-light leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4 max-w-md drop-shadow-sm">
+                    {event1.description}
+                  </p>
+
+                  <div>
+                    <Link
+                      href={event1.href}
+                      tabIndex={activeMobileChapterIndex === 0 ? 0 : -1}
+                      className="group inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-gold hover:bg-gold-deep text-charcoal font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-normal ease-luxury shadow-[0_4px_16px_rgba(199,158,34,0.3)]"
+                    >
+                      <span>{event1.ctaText}</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-normal ease-luxury group-hover:translate-x-1" aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* -----------------------------------------------------------------
+                MOBILE SCENE 02: TRADITIONAL CEREMONIES (Enters from RIGHT)
+               ----------------------------------------------------------------- */}
+            <div
+              ref={mScene2Ref}
+              aria-hidden={activeMobileChapterIndex !== 1}
+              className={`absolute inset-0 w-full h-full overflow-hidden will-change-transform ${
+                activeMobileChapterIndex === 1 ? 'pointer-events-auto' : 'pointer-events-none'
+              }`}
+            >
+              <div className="relative w-full h-full">
+                <div ref={mImg2Ref} className="absolute inset-0 w-full h-full will-change-transform">
+                  <Image
+                    src={event2.image}
+                    alt={event2.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-center select-none"
+                    priority={false}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 via-45% to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-charcoal/70 via-charcoal/30 to-transparent pointer-events-none" />
+
+                <div
+                  ref={mText2Ref}
+                  className="absolute inset-x-0 bottom-0 p-5 sm:p-8 flex flex-col justify-end will-change-transform z-20"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-mono text-xs font-semibold text-gold tracking-widest uppercase">
+                      {event2.number}
+                    </span>
+                    <span className="text-ivory/30">&middot;</span>
+                    <span className="overline-luxury text-gold-light text-[10px] tracking-[0.16em]">
+                      {event2.category}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-ivory text-[clamp(1.5rem,5.5vw,2.4rem)] leading-[1.12] tracking-tight mb-2 whitespace-pre-line drop-shadow-sm">
+                    {event2.headline}
+                  </h3>
+
+                  <p className="font-sans text-xs sm:text-sm text-ivory/80 font-light leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4 max-w-md drop-shadow-sm">
+                    {event2.description}
+                  </p>
+
+                  <div>
+                    <Link
+                      href={event2.href}
+                      tabIndex={activeMobileChapterIndex === 1 ? 0 : -1}
+                      className="group inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-gold hover:bg-gold-deep text-charcoal font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-normal ease-luxury shadow-[0_4px_16px_rgba(199,158,34,0.3)]"
+                    >
+                      <span>{event2.ctaText}</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-normal ease-luxury group-hover:translate-x-1" aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* -----------------------------------------------------------------
+                MOBILE SCENE 03: WEDDINGS & ENGAGEMENTS (Enters from LEFT)
+               ----------------------------------------------------------------- */}
+            <div
+              ref={mScene3Ref}
+              aria-hidden={activeMobileChapterIndex !== 2}
+              className={`absolute inset-0 w-full h-full overflow-hidden will-change-transform ${
+                activeMobileChapterIndex === 2 ? 'pointer-events-auto' : 'pointer-events-none'
+              }`}
+            >
+              <div className="relative w-full h-full">
+                <div ref={mImg3Ref} className="absolute inset-0 w-full h-full will-change-transform">
+                  <Image
+                    src={event3.image}
+                    alt={event3.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-center select-none"
+                    priority={false}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 via-45% to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-charcoal/70 via-charcoal/30 to-transparent pointer-events-none" />
+
+                <div
+                  ref={mText3Ref}
+                  className="absolute inset-x-0 bottom-0 p-5 sm:p-8 flex flex-col justify-end will-change-transform z-20"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-mono text-xs font-semibold text-gold tracking-widest uppercase">
+                      {event3.number}
+                    </span>
+                    <span className="text-ivory/30">&middot;</span>
+                    <span className="overline-luxury text-gold-light text-[10px] tracking-[0.16em]">
+                      {event3.category}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-ivory text-[clamp(1.5rem,5.5vw,2.4rem)] leading-[1.12] tracking-tight mb-2 whitespace-pre-line drop-shadow-sm">
+                    {event3.headline}
+                  </h3>
+
+                  <p className="font-sans text-xs sm:text-sm text-ivory/80 font-light leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4 max-w-md drop-shadow-sm">
+                    {event3.description}
+                  </p>
+
+                  <div>
+                    <Link
+                      href={event3.href}
+                      tabIndex={activeMobileChapterIndex === 2 ? 0 : -1}
+                      className="group inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-gold hover:bg-gold-deep text-charcoal font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-normal ease-luxury shadow-[0_4px_16px_rgba(199,158,34,0.3)]"
+                    >
+                      <span>{event3.ctaText}</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-normal ease-luxury group-hover:translate-x-1" aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* -----------------------------------------------------------------
+                MOBILE SCENE 04: BABY SHOWERS & NEW BEGINNINGS (Enters from RIGHT)
+               ----------------------------------------------------------------- */}
+            <div
+              ref={mScene4Ref}
+              aria-hidden={activeMobileChapterIndex !== 3}
+              className={`absolute inset-0 w-full h-full overflow-hidden will-change-transform ${
+                activeMobileChapterIndex === 3 ? 'pointer-events-auto' : 'pointer-events-none'
+              }`}
+            >
+              <div className="relative w-full h-full">
+                <div ref={mImg4Ref} className="absolute inset-0 w-full h-full will-change-transform">
+                  <Image
+                    src={event4.image}
+                    alt={event4.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-center select-none"
+                    priority={false}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 via-45% to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-charcoal/70 via-charcoal/30 to-transparent pointer-events-none" />
+
+                <div
+                  ref={mText4Ref}
+                  className="absolute inset-x-0 bottom-0 p-5 sm:p-8 flex flex-col justify-end will-change-transform z-20"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-mono text-xs font-semibold text-gold tracking-widest uppercase">
+                      {event4.number}
+                    </span>
+                    <span className="text-ivory/30">&middot;</span>
+                    <span className="overline-luxury text-gold-light text-[10px] tracking-[0.16em]">
+                      {event4.category}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-ivory text-[clamp(1.5rem,5.5vw,2.4rem)] leading-[1.12] tracking-tight mb-2 whitespace-pre-line drop-shadow-sm">
+                    {event4.headline}
+                  </h3>
+
+                  <p className="font-sans text-xs sm:text-sm text-ivory/80 font-light leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4 max-w-md drop-shadow-sm">
+                    {event4.description}
+                  </p>
+
+                  <div>
+                    <Link
+                      href={event4.href}
+                      tabIndex={activeMobileChapterIndex === 3 ? 0 : -1}
+                      className="group inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-gold hover:bg-gold-deep text-charcoal font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-normal ease-luxury shadow-[0_4px_16px_rgba(199,158,34,0.3)]"
+                    >
+                      <span>{event4.ctaText}</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-normal ease-luxury group-hover:translate-x-1" aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
+        </div>
       </div>
 
       {/* =========================================================================
           PART C: ADDITIONAL EVENT CATEGORIES (05-07) & DIRECTORY CTA
           Interactive typographic index with desktop live hover preview & mobile thumbnails.
          ========================================================================= */}
-      <div className="w-full bg-ivory text-charcoal pt-14 sm:pt-16 pb-20 sm:pb-28 border-t border-charcoal/10">
+      <div className="w-full bg-ivory text-charcoal pt-10 sm:pt-16 pb-20 sm:pb-28 border-t border-charcoal/10">
         <div className="container-luxury mx-auto px-6 sm:px-10 lg:px-16">
           {/* Index Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-14">
