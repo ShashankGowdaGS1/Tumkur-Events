@@ -51,11 +51,15 @@ export function OurExpertise() {
   const scrollToEdition = (index: number) => {
     const el = editionsScrollRef.current;
     if (!el) return;
-    const targetChild = el.children[index] as HTMLElement;
-    if (targetChild) {
-      targetChild.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-      setActiveEditionIndex(index);
+    const firstChild = el.firstElementChild as HTMLElement;
+    if (firstChild) {
+      const itemWidth = firstChild.offsetWidth + 16;
+      el.scrollTo({ left: index * itemWidth, behavior: 'smooth' });
+    } else {
+      const targetChild = el.children[index] as HTMLElement;
+      targetChild?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
     }
+    setActiveEditionIndex(index);
   };
 
   useEffect(() => {
@@ -332,7 +336,7 @@ export function OurExpertise() {
           <div
             ref={editionsScrollRef}
             onScroll={handleScroll}
-            className="-mx-6 px-6 flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3 pt-1 touch-pan-x touch-pan-y [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3 pt-1 touch-pan-x touch-pan-y [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
             {expertiseServices.map((service, index) => {
@@ -340,10 +344,10 @@ export function OurExpertise() {
               return (
                 <div
                   key={service.id}
-                  className="shrink-0 w-[82vw] max-w-[360px] snap-start relative"
+                  className="shrink-0 w-full snap-start relative"
                 >
                   <div
-                    className={`relative w-full h-[320px] p-6 rounded-xl border flex flex-col justify-between transition-all duration-300 ease-luxury ${
+                    className={`relative w-full min-h-[300px] sm:min-h-[320px] p-6 rounded-xl border flex flex-col justify-between transition-all duration-300 ease-luxury ${
                       isActive
                         ? 'bg-[#F4EFE6] border-[#C79E22]/50 shadow-[0_8px_24px_rgba(21,21,21,0.06)]'
                         : 'bg-[#F9F6F0] border-charcoal/10 opacity-80'

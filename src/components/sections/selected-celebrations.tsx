@@ -56,7 +56,8 @@ export function SelectedCelebrations() {
     const scrollLeft = el.scrollLeft;
     const firstChild = el.firstElementChild as HTMLElement;
     if (!firstChild) return;
-    const slideWidth = firstChild.offsetWidth + 16; // 16px corresponds to gap-4
+    const gap = window.innerWidth >= 640 ? 24 : 16;
+    const slideWidth = firstChild.offsetWidth + gap;
     const newIndex = Math.round(scrollLeft / slideWidth);
     const clampedIndex = Math.max(0, Math.min(newIndex, selectedCelebrations.length - 1));
     if (clampedIndex !== activeFilmstripIndex) {
@@ -67,11 +68,16 @@ export function SelectedCelebrations() {
   const scrollToSlide = (index: number) => {
     const el = filmstripRef.current;
     if (!el) return;
-    const targetChild = el.children[index] as HTMLElement;
-    if (targetChild) {
-      targetChild.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-      setActiveFilmstripIndex(index);
+    const firstChild = el.firstElementChild as HTMLElement;
+    if (firstChild) {
+      const gap = window.innerWidth >= 640 ? 24 : 16;
+      const slideWidth = firstChild.offsetWidth + gap;
+      el.scrollTo({ left: index * slideWidth, behavior: 'smooth' });
+    } else {
+      const targetChild = el.children[index] as HTMLElement;
+      targetChild?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
     }
+    setActiveFilmstripIndex(index);
   };
 
   useEffect(() => {
@@ -405,7 +411,7 @@ export function SelectedCelebrations() {
             <div
               ref={filmstripRef}
               onScroll={handleFilmstripScroll}
-              className="-mx-6 sm:-mx-10 px-6 sm:px-10 flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3 touch-pan-x touch-pan-y [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3 touch-pan-x touch-pan-y [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {selectedCelebrations.map((item, idx) => {
@@ -413,7 +419,7 @@ export function SelectedCelebrations() {
                 return (
                   <div
                     key={item.id}
-                    className="shrink-0 w-[84vw] sm:w-[72vw] md:w-[62vw] max-w-[540px] snap-start relative"
+                    className="shrink-0 w-full snap-start relative"
                   >
                     <div
                       className={`relative w-full h-[400px] sm:h-[460px] overflow-hidden rounded-2xl border transition-all duration-300 ${
