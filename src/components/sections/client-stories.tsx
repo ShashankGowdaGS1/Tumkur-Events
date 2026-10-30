@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { gsap, registerGsapPlugins, prefersReducedMotion } from '@/lib/gsap';
 import { journalIntro } from '@/config/testimonials';
 import { JournalTriptych } from '@/components/reviews/journal-triptych';
@@ -161,6 +162,21 @@ export function ClientStories() {
       aria-label="The Celebration Journal — Stories Behind Every Detail"
       className="relative bg-[#E8DFCF] text-charcoal py-16 sm:py-20 lg:py-24 overflow-hidden border-t border-charcoal/10"
     >
+      {/* Decorative Corner Floral Ornament (Top-Left) */}
+      <div
+        className="pointer-events-none select-none absolute top-0 left-0 w-[120px] sm:w-[170px] lg:w-[220px] opacity-80 sm:opacity-85 lg:opacity-90 z-0"
+        aria-hidden="true"
+      >
+        <Image
+          src="/decor/journal-corner-floral.webp"
+          alt=""
+          width={220}
+          height={220}
+          className="w-full h-auto object-contain"
+          priority={false}
+        />
+      </div>
+
       <div className="container-luxury relative z-10">
         {/* =====================================================================
             01. BALANCED TWO-COLUMN INTRODUCTION (Compact & Balanced)
