@@ -154,6 +154,23 @@ export function TrustLocalPresence() {
       aria-labelledby="trust-presence-heading"
       className="relative w-full bg-ivory text-charcoal py-14 sm:py-20 lg:py-36 overflow-hidden"
     >
+      {/* Cascading Floral Garland (Directly along top seam right below Hero) */}
+      <div
+        className="pointer-events-none select-none absolute top-0 left-0 right-0 w-full overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]"
+        aria-hidden="true"
+      >
+        <div className="w-full opacity-75 sm:opacity-80 lg:opacity-85">
+          <Image
+            src="/decor/hanging-floral-garland.webp"
+            alt=""
+            width={1600}
+            height={1024}
+            className="w-full h-[120px] sm:h-[170px] lg:h-[230px] object-cover object-top"
+            priority={false}
+          />
+        </div>
+      </div>
+
       <div className="container-luxury mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         {/* Eyebrow Label with Gold Accent */}
         <div ref={eyebrowRef} className="inline-flex items-center gap-3 mb-5 sm:mb-8 lg:mb-12">
@@ -299,21 +316,6 @@ export function TrustLocalPresence() {
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Luxury Decorative Botanical Watermark (Lower-Right Edge) */}
-      <div
-        className="pointer-events-none select-none absolute -bottom-8 -right-8 sm:-bottom-4 sm:-right-4 lg:bottom-0 lg:right-4 w-[180px] sm:w-[220px] lg:w-[260px] opacity-90 z-0 hidden md:block"
-        aria-hidden="true"
-      >
-        <Image
-          src="/decor/gold-botanical-accent.webp"
-          alt=""
-          width={260}
-          height={273}
-          className="w-full h-auto object-contain"
-          priority={false}
-        />
       </div>
     </section>
   );
