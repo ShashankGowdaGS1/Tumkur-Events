@@ -165,3 +165,4 @@ All animations adhere to the centralized infrastructure in `src/lib/gsap.ts`:
 - **Chatbot Gemini API:** Chat launcher and panel UI are fully functional and accessible, ready for future Gemini Live / Chat API integration.
 - **Media Optimization:** All photos served via Next.js `<Image>` with responsive `sizes` attribute, WebP formats, and explicit aspect ratios.
 - **SEO & Structured Data:** Semantic `h1`-`h3` hierarchy, `LocalBusiness` schema with Tumakuru geo-coordinates, openGraph cards, and canonical metadata.
+
