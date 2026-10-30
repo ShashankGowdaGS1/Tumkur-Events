@@ -1,4 +1,5 @@
 import React from 'react';
+import { siteConfig } from '@/config/site';
 import { CinematicHero } from '@/components/sections/hero/cinematic-hero';
 import { TrustLocalPresence } from '@/components/sections/trust-local-presence';
 import { ArtOfCelebration } from '@/components/sections/art-of-celebration';
@@ -12,8 +13,44 @@ import { CelebrationFaq } from '@/components/sections/celebration-faq';
 import { FinalCelebrationCta } from '@/components/sections/final-celebration-cta';
 
 export default function HomePage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: siteConfig.brand.name,
+    legalName: siteConfig.brand.legalName,
+    url: siteConfig.meta.siteUrl,
+    logo: `${siteConfig.meta.siteUrl}/brand/tumkur-logo-circle.webp`,
+    description: siteConfig.meta.defaultDescription,
+    telephone: siteConfig.contact.phone,
+    email: siteConfig.contact.email,
+    priceRange: '₹₹₹',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: siteConfig.contact.address.streetAddress,
+      addressLocality: siteConfig.contact.address.city,
+      addressRegion: siteConfig.contact.address.state,
+      postalCode: siteConfig.contact.address.postalCode,
+      addressCountry: 'IN',
+    },
+    areaServed: [
+      {
+        '@type': 'City',
+        name: 'Tumakuru',
+      },
+      {
+        '@type': 'AdministrativeArea',
+        name: 'Karnataka',
+      },
+    ],
+  };
+
   return (
     <main className="flex-1 flex flex-col bg-ivory text-charcoal">
+      {/* Structured Data (JSON-LD) for Local SEO & Rich Snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* =========================================================================
           HOMEPAGE SECTION 01: FULLSCREEN CINEMATIC SCROLLYTELLING HERO
           4-chapter synchronized video scrub (0s to 17.88s) overlaying dark canvas.

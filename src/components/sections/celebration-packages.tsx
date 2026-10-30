@@ -129,7 +129,7 @@ export function CelebrationPackages() {
          ======================================================================= */}
       <div
         ref={floralCornerRef}
-        className="absolute top-0 right-0 w-52 sm:w-72 lg:w-96 aspect-square pointer-events-none select-none z-0 opacity-80 mix-blend-multiply overflow-hidden"
+        className="absolute top-0 right-0 w-36 sm:w-72 lg:w-96 aspect-square pointer-events-none select-none z-0 opacity-20 sm:opacity-75 lg:opacity-85 mix-blend-multiply overflow-hidden"
         aria-hidden="true"
       >
         <Image
@@ -193,7 +193,7 @@ export function CelebrationPackages() {
                     type="button"
                     onClick={() => handlePackageToggle(pkg.id)}
                     aria-expanded={isActive}
-                    className="w-full p-5 sm:p-7 text-left flex items-start sm:items-center justify-between gap-4 transition-colors focus-visible:outline-2 focus-visible:outline-gold"
+                    className="w-full p-4 sm:p-7 text-left flex items-start sm:items-center justify-between gap-3 sm:gap-4 transition-colors focus-visible:outline-2 focus-visible:outline-gold"
                   >
                     <div className="flex items-start sm:items-center gap-4 sm:gap-6">
                       {/* Package Number */}
