@@ -154,18 +154,18 @@ export function TrustLocalPresence() {
       aria-labelledby="trust-presence-heading"
       className="relative w-full bg-ivory text-charcoal py-14 sm:py-20 lg:py-36 overflow-hidden"
     >
-      {/* Cascading Floral Garland (Directly along top seam right below Hero) */}
+      {/* Upper-Right Corner: Golden Hanging Lanterns with Cream Floral Foliage */}
       <div
-        className="pointer-events-none select-none absolute top-0 left-0 right-0 w-full overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]"
+        className="pointer-events-none select-none absolute top-0 right-0 z-0 hidden md:block overflow-hidden"
         aria-hidden="true"
       >
-        <div className="w-full opacity-75 sm:opacity-80 lg:opacity-85">
+        <div className="w-[220px] md:w-[250px] lg:w-[280px] xl:w-[320px] 2xl:w-[340px] opacity-95">
           <Image
-            src="/decor/hanging-floral-garland.webp"
+            src="/decor/golden-lantern-corner.webp"
             alt=""
-            width={1600}
+            width={660}
             height={1024}
-            className="w-full h-[120px] sm:h-[170px] lg:h-[230px] object-cover object-top"
+            className="w-full h-auto object-contain object-top-right"
             priority={false}
           />
         </div>
@@ -216,7 +216,7 @@ export function TrustLocalPresence() {
           <div className="lg:col-span-5 lg:pt-2">
             <p
               ref={bodyRef}
-              className="font-sans text-[15px] sm:text-[17px] lg:text-[19px] leading-[1.65] sm:leading-[1.75] text-charcoal/80 font-normal sm:font-light"
+              className="font-sans text-[15px] sm:text-[17px] lg:text-[19px] leading-[1.65] sm:leading-[1.75] text-charcoal/80 font-normal sm:font-light max-w-lg"
             >
               From joyful birthdays and traditional ceremonies to memorable engagements and
               grand celebrations, every occasion deserves thoughtful details and a personal touch.
