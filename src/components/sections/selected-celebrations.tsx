@@ -114,18 +114,18 @@ export function SelectedCelebrations() {
       aria-labelledby="selected-celebrations-heading"
       className="relative w-full bg-charcoal text-ivory overflow-hidden py-24 sm:py-32 lg:py-36"
     >
-      {/* Upper-Right Edge: Golden Pampas Grass & Dried Florals Accent */}
+      {/* Bottom-Right Edge: Golden Pampas Grass & Dried Florals Accent */}
       <div
-        className="pointer-events-none select-none absolute -top-8 -right-6 z-0 hidden lg:block overflow-hidden"
+        className="pointer-events-none select-none absolute -bottom-10 -right-6 z-0 hidden lg:block overflow-hidden"
         aria-hidden="true"
       >
-        <div className="w-[clamp(150px,13vw,220px)] opacity-90">
+        <div className="w-[clamp(160px,13vw,240px)] opacity-90">
           <Image
             src="/decor/golden-pampas-accent.webp"
             alt=""
             width={483}
             height={1022}
-            className="w-full h-auto object-contain object-top-right"
+            className="w-full h-auto object-contain object-bottom-right"
             priority={false}
           />
         </div>
