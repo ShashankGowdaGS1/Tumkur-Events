@@ -303,7 +303,7 @@ export function TrustLocalPresence() {
 
       {/* Luxury Decorative Botanical Watermark (Lower-Right Edge) */}
       <div
-        className="pointer-events-none select-none absolute -bottom-8 -right-8 sm:-bottom-4 sm:-right-4 lg:bottom-0 lg:right-4 w-[180px] sm:w-[220px] lg:w-[260px] opacity-[0.24] z-0 hidden md:block"
+        className="pointer-events-none select-none absolute -bottom-8 -right-8 sm:-bottom-4 sm:-right-4 lg:bottom-0 lg:right-4 w-[180px] sm:w-[220px] lg:w-[260px] opacity-90 z-0 hidden md:block"
         aria-hidden="true"
       >
         <Image

@@ -205,9 +205,9 @@ export function EventProcessTimeline() {
         ref={stageRef}
         className="hidden md:flex relative w-full h-[100svh] min-h-[640px] overflow-hidden flex-col justify-between pt-[84px] box-border"
       >
-        {/* Static Background Golden Lanterns (Top-Right, independent of scroll scrub) */}
+        {/* Static Background Golden Element (Top-Right, independent of scroll scrub, subtle background watermark) */}
         <div
-          className="pointer-events-none select-none absolute top-0 right-4 lg:right-12 w-[130px] lg:w-[175px] opacity-80 z-0 hidden md:block"
+          className="pointer-events-none select-none absolute top-0 right-4 lg:right-12 w-[140px] lg:w-[185px] opacity-[0.18] lg:opacity-[0.20] z-0 hidden md:block"
           aria-hidden="true"
         >
           <Image
