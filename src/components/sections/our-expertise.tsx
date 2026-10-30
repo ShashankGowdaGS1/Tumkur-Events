@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { gsap, registerGsapPlugins, prefersReducedMotion } from '@/lib/gsap';
 import { expertiseServices } from '@/config/expertise';
@@ -148,7 +149,22 @@ export function OurExpertise() {
       aria-label="Our Expertise in Event Decoration and Styling"
       className="relative bg-ivory text-charcoal py-20 sm:py-28 lg:py-32 overflow-hidden"
     >
-      <div className="container-luxury">
+      {/* Decorative White Floral Corner Arrangement (Upper-Right Margin) */}
+      <div
+        className="pointer-events-none select-none absolute -top-10 -right-10 sm:-top-14 sm:-right-14 lg:-top-16 lg:-right-16 w-[200px] sm:w-[260px] lg:w-[320px] opacity-40 sm:opacity-50 lg:opacity-60 z-0 hidden sm:block"
+        aria-hidden="true"
+      >
+        <Image
+          src="/decor/white-floral-corner.webp"
+          alt=""
+          width={320}
+          height={242}
+          className="w-full h-auto object-contain transform scale-x-[-1]"
+          priority={false}
+        />
+      </div>
+
+      <div className="container-luxury relative z-10">
         {/* =========================================================================
             01. SECTION HEADER: TWO-COLUMN EDITORIAL INTRO
            ========================================================================= */}

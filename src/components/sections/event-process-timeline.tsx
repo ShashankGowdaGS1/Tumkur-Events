@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { gsap, registerGsapPlugins, prefersReducedMotion } from '@/lib/gsap';
 import { processSteps, processIntro, processClosing } from '@/config/event-process';
@@ -204,8 +205,23 @@ export function EventProcessTimeline() {
         ref={stageRef}
         className="hidden md:flex relative w-full h-[100svh] min-h-[640px] overflow-hidden flex-col justify-between pt-[84px] box-border"
       >
+        {/* Static Background Golden Lanterns (Top-Right, independent of scroll scrub) */}
+        <div
+          className="pointer-events-none select-none absolute top-0 right-4 lg:right-12 w-[130px] lg:w-[175px] opacity-80 z-0 hidden md:block"
+          aria-hidden="true"
+        >
+          <Image
+            src="/decor/golden-hanging-lanterns.webp"
+            alt=""
+            width={175}
+            height={385}
+            className="w-full h-auto object-contain filter drop-shadow-[0_4px_24px_rgba(199,158,34,0.18)]"
+            priority={false}
+          />
+        </div>
+
         {/* Stage Header: Compact Editorial Introduction */}
-        <div className="container-luxury py-4 sm:py-6 shrink-0 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-charcoal-light/60">
+        <div className="container-luxury py-4 sm:py-6 shrink-0 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-charcoal-light/60 relative z-10">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="h-px w-6 bg-gold" aria-hidden="true" />

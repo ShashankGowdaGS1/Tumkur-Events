@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { gsap, registerGsapPlugins, prefersReducedMotion } from '@/lib/gsap';
 
@@ -153,7 +154,7 @@ export function TrustLocalPresence() {
       aria-labelledby="trust-presence-heading"
       className="relative w-full bg-ivory text-charcoal py-14 sm:py-20 lg:py-36 overflow-hidden"
     >
-      <div className="container-luxury mx-auto px-6 sm:px-10 lg:px-16">
+      <div className="container-luxury mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         {/* Eyebrow Label with Gold Accent */}
         <div ref={eyebrowRef} className="inline-flex items-center gap-3 mb-5 sm:mb-8 lg:mb-12">
           <span className="overline-luxury text-gold-deep text-xs sm:text-xs">
@@ -298,6 +299,21 @@ export function TrustLocalPresence() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Luxury Decorative Botanical Watermark (Lower-Right Edge) */}
+      <div
+        className="pointer-events-none select-none absolute -bottom-8 -right-8 sm:-bottom-4 sm:-right-4 lg:bottom-0 lg:right-4 w-[180px] sm:w-[220px] lg:w-[260px] opacity-[0.24] z-0 hidden md:block"
+        aria-hidden="true"
+      >
+        <Image
+          src="/decor/gold-botanical-accent.webp"
+          alt=""
+          width={260}
+          height={273}
+          className="w-full h-auto object-contain"
+          priority={false}
+        />
       </div>
     </section>
   );
