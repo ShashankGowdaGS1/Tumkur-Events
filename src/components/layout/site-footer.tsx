@@ -62,7 +62,7 @@ export function SiteFooter() {
       id="site-footer"
       ref={footerRef}
       role="contentinfo"
-      className="relative w-full bg-[#151515] text-[#F7F4EE] pt-16 sm:pt-20 lg:pt-24 pb-12 overflow-hidden border-t border-[#222222]"
+      className="relative w-full bg-[#151515] text-[#F7F4EE] pt-16 sm:pt-20 lg:pt-24 pb-24 sm:pb-20 lg:pb-16 overflow-hidden border-t border-[#222222]"
     >
       <div ref={containerRef} className="container-luxury relative z-10">
         {/* AREA A: BRAND INTRODUCTION */}

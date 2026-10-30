@@ -79,6 +79,30 @@
   --duration-normal: 400ms;
   --duration-slow: 750ms;
   --duration-deliberate: 1200ms;
+
+  /* Floating Action Buttons Responsive Geometry */
+  --fab-size: 52px;
+  --fab-icon-size: 25px;
+  --fab-edge: 16px;
+  --fab-bottom: 20px;
+}
+
+@media (min-width: 481px) {
+  :root {
+    --fab-size: 56px;
+    --fab-icon-size: 27px;
+    --fab-edge: 20px;
+    --fab-bottom: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --fab-size: 60px;
+    --fab-icon-size: 28px;
+    --fab-edge: 24px;
+    --fab-bottom: 24px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

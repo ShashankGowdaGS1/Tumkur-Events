@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { MessageSquare, X } from 'lucide-react';
-import { footerConfig } from '@/config/footer';
 
 interface ChatLauncherProps {
   readonly isOpen: boolean;
@@ -14,16 +13,18 @@ interface ChatLauncherProps {
  *
  * Triggers the branded celebration assistance panel.
  * - Charcoal & Brand Gold design
- * - Animated morph between chat icon and close (X)
- * - Gold live status indicator dot
+ * - Responsive sizing: 52px (mobile) / 56px (tablet) / 60px (desktop)
+ * - Safe area inset compliant
+ * - Subtle hover & press feedback
+ * - Restrained status indicator
  */
 export function ChatLauncher({ isOpen, onToggle }: ChatLauncherProps) {
   return (
     <div
-      className="fixed z-40"
+      className="fixed z-40 select-none"
       style={{
-        bottom: 'max(1.25rem, calc(1.25rem + env(safe-area-inset-bottom, 0px)))',
-        right: 'max(1.25rem, calc(1.25rem + env(safe-area-inset-right, 0px)))',
+        bottom: 'max(var(--fab-bottom), calc(var(--fab-bottom) + env(safe-area-inset-bottom, 0px)))',
+        right: 'max(var(--fab-edge), calc(var(--fab-edge) + env(safe-area-inset-right, 0px)))',
       }}
     >
       <button
@@ -36,37 +37,52 @@ export function ChatLauncher({ isOpen, onToggle }: ChatLauncherProps) {
             ? 'Close Tumkur Events Celebration Assistant'
             : 'Open Tumkur Events Celebration Assistant'
         }
-        className="group relative flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#151515] text-[#F7F4EE] border border-[#C79E22] shadow-[0_8px_24px_rgba(21,21,21,0.5)] transition-all duration-300 hover:scale-105 hover:border-[#D6AC2A] hover:bg-[#222222] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C79E22] focus-visible:ring-offset-2 focus-visible:ring-offset-[#151515]"
+        className="group relative flex items-center justify-center rounded-full bg-[#151515] text-[#F7F4EE] border border-[#C79E22] shadow-[0_6px_20px_rgba(21,21,21,0.45)] transition-all duration-200 hover:scale-105 active:scale-95 hover:border-[#D6AC2A] hover:bg-[#202020] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C79E22] focus-visible:ring-offset-2 focus-visible:ring-offset-[#151515]"
+        style={{
+          width: 'var(--fab-size)',
+          height: 'var(--fab-size)',
+        }}
       >
         {/* Animated Icon: Chat Bubble vs Close */}
-        <div className="relative h-6 w-6 flex items-center justify-center">
+        <div
+          className="relative flex items-center justify-center"
+          style={{
+            width: 'var(--fab-icon-size)',
+            height: 'var(--fab-icon-size)',
+          }}
+        >
           <X
-            className={`absolute h-6 w-6 text-[#F7F4EE] transition-all duration-300 ${
+            className={`absolute text-[#F7F4EE] transition-all duration-200 ${
               isOpen
                 ? 'rotate-0 scale-100 opacity-100'
                 : '-rotate-90 scale-50 opacity-0'
             }`}
+            style={{
+              width: 'var(--fab-icon-size)',
+              height: 'var(--fab-icon-size)',
+            }}
             aria-hidden="true"
           />
           <MessageSquare
-            className={`absolute h-6 w-6 text-[#C79E22] transition-all duration-300 ${
+            className={`absolute text-[#C79E22] transition-all duration-200 ${
               isOpen
                 ? 'rotate-90 scale-50 opacity-0'
-                : 'rotate-0 scale-100 opacity-100 group-hover:scale-110'
+                : 'rotate-0 scale-100 opacity-100'
             }`}
+            style={{
+              width: 'var(--fab-icon-size)',
+              height: 'var(--fab-icon-size)',
+            }}
             aria-hidden="true"
           />
         </div>
 
-        {/* Ambient Gold Status Pulse */}
+        {/* Static Gold Status Indicator Dot (subtle, non-distracting) */}
         {!isOpen && (
           <span
-            className="absolute top-0.5 right-0.5 flex h-3.5 w-3.5"
+            className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full border-2 border-[#151515] bg-[#C79E22]"
             aria-hidden="true"
-          >
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#C79E22] opacity-60" />
-            <span className="relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-[#151515] bg-[#C79E22]" />
-          </span>
+          />
         )}
       </button>
     </div>

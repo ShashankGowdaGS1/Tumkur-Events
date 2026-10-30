@@ -8,19 +8,19 @@ import { footerConfig } from '@/config/footer';
  *
  * Provides instant access to official WhatsApp event enquiries.
  * - WhatsApp green (#25D366) with clean circular icon
- * - Encoded prefilled enquiry message
- * - Desktop hover tooltip: "Chat on WhatsApp"
+ * - Responsive sizing: 52px (mobile) / 56px (tablet) / 60px (desktop)
  * - Safe area inset compliant
+ * - Subtle hover & press feedback
  */
 export function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className="fixed z-40"
+      className="fixed z-40 select-none"
       style={{
-        bottom: 'max(1.25rem, calc(1.25rem + env(safe-area-inset-bottom, 0px)))',
-        left: 'max(1.25rem, calc(1.25rem + env(safe-area-inset-left, 0px)))',
+        bottom: 'max(var(--fab-bottom), calc(var(--fab-bottom) + env(safe-area-inset-bottom, 0px)))',
+        left: 'max(var(--fab-edge), calc(var(--fab-edge) + env(safe-area-inset-left, 0px)))',
       }}
     >
       <div className="relative flex items-center">
@@ -32,11 +32,19 @@ export function WhatsAppButton() {
           aria-label={footerConfig.whatsapp.ariaLabel}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="group relative flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_20px_rgba(37,211,102,0.35)] transition-all duration-300 hover:scale-105 hover:bg-[#20bd5a] hover:shadow-[0_6px_24px_rgba(37,211,102,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#151515]"
+          className="group relative flex items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_16px_rgba(0,0,0,0.25)] transition-all duration-200 hover:scale-105 active:scale-95 hover:bg-[#20bd5a] hover:shadow-[0_6px_20px_rgba(37,211,102,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#151515]"
+          style={{
+            width: 'var(--fab-size)',
+            height: 'var(--fab-size)',
+          }}
         >
           {/* Official WhatsApp Speech Bubble Glyph */}
           <svg
-            className="h-7 w-7 fill-current transition-transform duration-300 group-hover:scale-110"
+            className="fill-current transition-transform duration-200"
+            style={{
+              width: 'var(--fab-icon-size)',
+              height: 'var(--fab-icon-size)',
+            }}
             viewBox="0 0 24 24"
             aria-hidden="true"
           >
@@ -46,7 +54,7 @@ export function WhatsAppButton() {
 
         {/* Desktop Expanding Tooltip Label */}
         <div
-          className={`hidden sm:block absolute left-full ml-3 px-3 py-1.5 rounded-sm bg-[#151515] border border-[#C79E22]/40 text-[#F7F4EE] text-xs font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 ${
+          className={`hidden lg:block absolute left-full ml-3 px-3 py-1.5 rounded-sm bg-[#151515] border border-[#C79E22]/40 text-[#F7F4EE] text-xs font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 ${
             isHovered
               ? 'opacity-100 translate-x-0'
               : 'opacity-0 -translate-x-2'

@@ -63,11 +63,11 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
       role="dialog"
       aria-modal="false"
       aria-label={footerConfig.chatAssistant.name}
-      className="fixed z-50 w-[calc(100vw-2.5rem)] sm:w-[380px] max-w-[400px] overflow-hidden rounded-md border border-[#C79E22]/50 bg-[#F7F4EE] shadow-[0_20px_50px_rgba(21,21,21,0.35)] transition-all duration-300 animate-in fade-in zoom-in-95"
+      className="fixed z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[400px] overflow-hidden rounded-md border border-[#C79E22]/50 bg-[#F7F4EE] shadow-[0_20px_50px_rgba(21,21,21,0.35)] transition-all duration-300 animate-in fade-in zoom-in-95"
       style={{
-        bottom: 'max(5.5rem, calc(5.5rem + env(safe-area-inset-bottom, 0px)))',
-        right: 'max(1.25rem, calc(1.25rem + env(safe-area-inset-right, 0px)))',
-        maxHeight: 'min(580px, calc(100vh - 7.5rem))',
+        bottom: 'calc(max(var(--fab-bottom), calc(var(--fab-bottom) + env(safe-area-inset-bottom, 0px))) + var(--fab-size) + 12px)',
+        right: 'max(var(--fab-edge), calc(var(--fab-edge) + env(safe-area-inset-right, 0px)))',
+        maxHeight: 'min(580px, calc(100vh - 120px))',
       }}
     >
       {/* Header: Charcoal #151515 with TE Emblem & Title */}
