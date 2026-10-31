@@ -1,0 +1,146 @@
+import { PolicyDocument } from './types';
+
+export const privacyPolicyContent: PolicyDocument = {
+  slug: 'privacy-policy',
+  eyebrow: 'LEGAL INFORMATION',
+  title: 'Privacy Policy',
+  subtitle:
+    'This Privacy Policy describes how Tumkur Events handles information associated with your website visits, celebration enquiries, and direct communications.',
+  lastUpdated: 'October 31, 2026',
+  statusNote:
+    'Editorial draft prepared for technical structure and navigation. Specific data retention and formal corporate policies are flagged for final legal review.',
+  seoTitle: 'Privacy Policy | Tumkur Events',
+  seoDescription:
+    'Learn how Tumkur Events collects, uses, and safeguards your event enquiry details and communication preferences.',
+  sections: [
+    {
+      id: 'introduction',
+      number: '01',
+      title: 'Introduction & Scope',
+      paragraphs: [
+        'Tumkur Events ("we", "us", or "our") is a luxury event styling and decoration atelier operating in Tumakuru, Karnataka. We are committed to treating personal information shared by prospective and confirmed clients with integrity, transparency, and care.',
+        'This Privacy Policy applies to personal details gathered through our website (tumkurevents.com), consultation enquiry forms, direct telephone calls, and official WhatsApp communications.',
+      ],
+      reviewNote:
+        '[BUSINESS REVIEW REQUIRED: Confirm formal registered corporate legal entity name and whether GSTIN or trade license details should be appended to this policy header.]',
+    },
+    {
+      id: 'information-collected',
+      number: '02',
+      title: 'Information We Collect',
+      paragraphs: [
+        'We collect only the information reasonably necessary to evaluate, scope, quotation-stage, and execute bespoke event decorations. When you interact with our website or submit an enquiry, you may provide:',
+      ],
+      bullets: [
+        'Identity & Contact Details: Full name, telephone or WhatsApp contact number, and email address.',
+        'Event Specifications: Type of celebration (wedding, birthday, traditional ceremony, etc.), expected event date, approximate guest count, and venue or locality in Tumakuru/Karnataka.',
+        'Aesthetic & Budget Preferences: Indicative decoration budget ranges, thematic concepts, color palettes, and custom vision notes.',
+        'Direct Communication History: Messages, inquiries, and reference photos sent voluntarily during consultations.',
+      ],
+    },
+    {
+      id: 'how-provided',
+      number: '03',
+      title: 'How Information Is Provided to Us',
+      paragraphs: [
+        'Information is collected strictly when you choose to provide it directly to our team. We do not acquire contact lists from external data brokers, nor do we deploy background scrapers or covert tracking tools to identify anonymous site visitors.',
+        'You may provide details by completing the event consultation form on our website, sending an official WhatsApp message, calling our telephone desk, or communicating via email.',
+      ],
+    },
+    {
+      id: 'how-used',
+      number: '04',
+      title: 'How Enquiry Information Is Used',
+      paragraphs: [
+        'We use the information you share exclusively for legitimate celebration planning purposes, including:',
+      ],
+      bullets: [
+        'Responding to date availability enquiries and providing initial decorative guidance.',
+        'Developing tailored floral and structural design proposals and cost estimates.',
+        'Coordinating logistical venue recce visits and production schedules with hall administrators in Tumakuru.',
+        'Sending administrative updates regarding confirmed event setups and schedule milestones.',
+      ],
+    },
+    {
+      id: 'whatsapp-enquiries',
+      number: '05',
+      title: 'Contact Form and WhatsApp Enquiries',
+      paragraphs: [
+        'Our website utilizes a transparent WhatsApp-first enquiry preparation system. When you complete the event enquiry form on our Contact page and click "Continue on WhatsApp", the website formats your provided details into a structured, readable message and opens WhatsApp on your device.',
+        'The website itself does not secretly store or transmit your form entries to an advertising network. You maintain complete control over the information because the message is only delivered to our decor team when you explicitly review and tap "Send" within the WhatsApp application.',
+      ],
+    },
+    {
+      id: 'analytics-technology',
+      number: '06',
+      title: 'Analytics and Website Technology',
+      paragraphs: [
+        'Our website is built using modern Next.js server-side technology. We do not employ third-party behavioral profiling scripts, cross-site advertising trackers, or social media tracking pixels (such as Meta Pixel or Google Ads tracking tags).',
+        'Standard server-level technical logs (such as request timestamps and HTTP status codes) are generated by hosting providers to maintain network stability, uptime monitoring, and cybersecurity defense.',
+      ],
+    },
+    {
+      id: 'third-party-services',
+      number: '07',
+      title: 'Third-Party Services and External Links',
+      paragraphs: [
+        'Our website provides convenient direct links to trusted communication platforms. When interacting with these external services, their respective privacy policies govern data handling:',
+      ],
+      bullets: [
+        'WhatsApp (Meta Platforms): Used for direct client messaging and consultation exchanges.',
+        'Instagram (Meta Platforms): Displays our external celebration portfolio and visual gallery.',
+        'Google Maps: Provides directions to our studio location and event venues in Tumakuru.',
+      ],
+    },
+    {
+      id: 'information-security',
+      number: '08',
+      title: 'Information Security Safeguards',
+      paragraphs: [
+        'We maintain reasonable administrative, technical, and physical safeguards designed to protect your personal information against unauthorized access, loss, alteration, or disclosure. Client communication channels are restricted to authorized event styling staff and management.',
+      ],
+      reviewNote:
+        '[BUSINESS REVIEW REQUIRED: Confirm internal protocols regarding cloud-stored proposal spreadsheets, client contact backups, and staff device security.]',
+    },
+    {
+      id: 'data-retention',
+      number: '09',
+      title: 'Data Retention & Record Keeping',
+      paragraphs: [
+        'Enquiry details for events that do not proceed to confirmed bookings are periodically reviewed and pruned. For confirmed celebrations, contractual agreements, invoicing records, and design briefs are retained as required by Indian taxation, accounting, and commercial record-keeping laws.',
+      ],
+      reviewNote:
+        '[BUSINESS REVIEW REQUIRED: Confirm specific retention timeline for prospective inquiry leads vs. completed event billing records (e.g. 7 years under statutory tax guidelines).]',
+    },
+    {
+      id: 'visitor-choices',
+      number: '10',
+      title: 'Your Choices and Rights',
+      paragraphs: [
+        'You have the right to request access to the personal contact details we hold regarding your event, request corrections to inaccurate information, or request that we delete your prospective consultation notes from our records.',
+        'To submit a request regarding your communication preferences or personal records, please email our concierge desk at concierge@tumkurevents.com.',
+      ],
+    },
+    {
+      id: 'policy-changes',
+      number: '11',
+      title: 'Changes to This Privacy Policy',
+      paragraphs: [
+        'We may occasionally update this Privacy Policy to reflect modifications in our operational procedures, digital services, or statutory compliance obligations. The date at the top of this document indicates when it was most recently revised.',
+      ],
+    },
+    {
+      id: 'contact-privacy',
+      number: '12',
+      title: 'Contact Regarding Privacy',
+      paragraphs: [
+        'If you have questions, feedback, or concerns regarding our privacy practices or the handling of your celebration details, please connect directly with our studio:',
+      ],
+      bullets: [
+        'Email: concierge@tumkurevents.com',
+        'Telephone: +91 94812 34567',
+        'Studio Address: B.H. Road, Near Ashoka Nagar, Tumakuru, Karnataka 572102',
+      ],
+    },
+  ],
+};
