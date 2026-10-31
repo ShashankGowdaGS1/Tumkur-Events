@@ -1,17 +1,10 @@
-import { Metadata } from 'next';
-import { PlaceholderView } from '@/components/ui/placeholder-view';
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Our Past Work & Case Studies',
-};
-
+/**
+ * Our Work Canonical Redirect
+ * Redirects legacy /our-work requests seamlessly to the comprehensive
+ * editorial celebration gallery at /gallery.
+ */
 export default function OurWorkPage() {
-  return (
-    <PlaceholderView
-      title="Our Past Events"
-      category="Event Stories & Archives"
-      description="Curated retrospective of milestone celebrations, grand wedding productions, and bespoke family events orchestrated across Tumakuru and South Karnataka."
-    />
-  );
+  redirect('/gallery');
 }
-
