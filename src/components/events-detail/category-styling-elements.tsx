@@ -153,3 +153,4 @@ export function CategoryStylingElements({ category }: CategoryStylingElementsPro
     </section>
   );
 }
+

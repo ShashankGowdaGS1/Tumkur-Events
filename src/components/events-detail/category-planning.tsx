@@ -173,3 +173,4 @@ export function CategoryPlanning({ category }: CategoryPlanningProps) {
     </section>
   );
 }
+

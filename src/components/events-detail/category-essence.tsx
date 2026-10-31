@@ -145,3 +145,4 @@ export function CategoryEssence({ category }: CategoryEssenceProps) {
     </section>
   );
 }
+

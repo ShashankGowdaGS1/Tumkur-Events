@@ -132,3 +132,4 @@ export function CategoryFinalCta({ category }: CategoryFinalCtaProps) {
     </section>
   );
 }
+

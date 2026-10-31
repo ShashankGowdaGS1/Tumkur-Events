@@ -122,3 +122,4 @@ export function CategoryFaq({ category }: CategoryFaqProps) {
     </section>
   );
 }
+

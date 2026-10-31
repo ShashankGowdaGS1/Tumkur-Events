@@ -255,3 +255,4 @@ export function CategoryHero({ category }: CategoryHeroProps) {
     </section>
   );
 }
+

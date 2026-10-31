@@ -1415,3 +1415,4 @@ export function getEventCategoryBySlug(slug: string): EventCategoryDetail | unde
  * All valid slugs for static params generation
  */
 export const allCategorySlugs = Object.keys(eventCategoryDetails);
+

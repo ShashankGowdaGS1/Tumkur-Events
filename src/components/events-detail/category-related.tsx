@@ -153,3 +153,4 @@ export function CategoryRelated({ category }: CategoryRelatedProps) {
     </section>
   );
 }
+

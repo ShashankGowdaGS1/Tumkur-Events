@@ -345,3 +345,4 @@ export function CategoryConcepts({ category }: CategoryConceptsProps) {
     </section>
   );
 }
+
