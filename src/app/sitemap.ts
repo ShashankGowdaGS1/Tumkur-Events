@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { siteConfig } from '@/config/site';
+import { blogCategories } from '@/lib/blog/categories';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.meta.siteUrl;
@@ -19,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/our-work',
     '/reviews',
     '/blog',
+    ...blogCategories.map((cat) => `/blog/category/${cat.slug}`),
     '/contact',
     '/privacy-policy',
     '/terms-and-conditions',
