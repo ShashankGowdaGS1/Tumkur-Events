@@ -74,7 +74,7 @@ export const heroConfig: HeroConfig = {
       },
       secondaryCta: {
         label: 'Explore Our Work',
-        href: '/our-work',
+        href: '/gallery',
       },
     },
     {

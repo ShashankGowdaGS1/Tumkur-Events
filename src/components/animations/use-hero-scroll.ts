@@ -78,17 +78,17 @@ export function useHeroScroll({
     mm.add(
       {
         isDesktop: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)',
-        isMobile: '(max-width: 1023px) and (prefers-reduced-motion: no-preference)',
+        isMobile: '(max-width: 1023px)',
         isReducedMotion: '(prefers-reduced-motion: reduce)',
       },
       (context) => {
-        const { isDesktop, isMobile } = context.conditions as {
+        const { isDesktop } = context.conditions as {
           isDesktop: boolean;
           isMobile: boolean;
           isReducedMotion: boolean;
         };
 
-        if (isDesktop || isMobile) {
+        if (isDesktop) {
           const duration =
             video && video.duration > 0 ? video.duration : heroConfig.media.nominalDuration;
 
@@ -149,16 +149,10 @@ export function useHeroScroll({
             new CustomEvent('tumkur:hero-state', { detail: { isScrolled: false } })
           );
 
-          // Calibrate scroll travel and scrub duration for desktop vs touch mobile
-          const scrollMultiplier = isDesktop
-            ? heroConfig.scroll.scrollMultiplier
-            : 2.2; // Optimized touch travel distance for mobile
+          const scrollMultiplier = heroConfig.scroll.scrollMultiplier;
+          const scrubSmoothing = heroConfig.scroll.scrubSmoothing;
 
-          const scrubSmoothing = isDesktop
-            ? heroConfig.scroll.scrubSmoothing
-            : 0.4; // Snappy touch scrub on mobile
-
-          // Single Authoritative Master Timeline with ScrollTrigger Pinning
+          // Single Authoritative Master Timeline with ScrollTrigger Pinning (Desktop Only)
           const masterTl = gsap.timeline({
             scrollTrigger: {
               trigger: heroSection,
@@ -225,7 +219,7 @@ export function useHeroScroll({
           const leftScrim = leftScrimRef?.current;
           const rightScrim = rightScrimRef?.current;
 
-          const travelOffset = isDesktop ? 30 : 20;
+          const travelOffset = 30;
 
           if (ch1 && ch2 && ch3 && ch4) {
             // Chapter 1 (Active on load) -> Chapter 2
@@ -240,7 +234,7 @@ export function useHeroScroll({
               },
               16
             );
-            if (isDesktop && leftScrim && rightScrim) {
+            if (leftScrim && rightScrim) {
               masterTl.to(leftScrim, { opacity: 0, duration: 6, ease: 'power1.out' }, 17);
               masterTl.to(rightScrim, { opacity: 1, duration: 6, ease: 'power1.out' }, 17);
             }
@@ -265,7 +259,7 @@ export function useHeroScroll({
               },
               46
             );
-            if (isDesktop && leftScrim && rightScrim) {
+            if (leftScrim && rightScrim) {
               masterTl.to(rightScrim, { opacity: 0, duration: 6, ease: 'power1.out' }, 47);
               masterTl.to(leftScrim, { opacity: 1, duration: 6, ease: 'power1.out' }, 47);
             }
@@ -290,7 +284,7 @@ export function useHeroScroll({
               },
               77
             );
-            if (isDesktop && leftScrim && rightScrim) {
+            if (leftScrim && rightScrim) {
               masterTl.to(leftScrim, { opacity: 0, duration: 6, ease: 'power1.out' }, 78);
               masterTl.to(rightScrim, { opacity: 1, duration: 6, ease: 'power1.out' }, 78);
             }
@@ -312,7 +306,18 @@ export function useHeroScroll({
             video?.removeEventListener('seeked', handleSeeked);
           };
         } else {
-          // Reduced Motion fallback: Static presentation, toggle navbar at boundary
+          // ===================================================================
+          // MOBILE & REDUCED MOTION:
+          // Zero ScrollTrigger pinning, zero video seeking, zero scrub timeline,
+          // zero artificial scroll spacer.
+          // The static floral doorway hero stays in normal document flow and
+          // scrolls naturally upward into Section 02 (#trust-presence).
+          // ===================================================================
+          window.dispatchEvent(
+            new CustomEvent('tumkur:hero-state', { detail: { isScrolled: false } })
+          );
+
+          // Lightweight non-pinning boundary trigger to coordinate navbar transparency
           ScrollTrigger.create({
             trigger: heroSection,
             start: 'top top',

@@ -79,8 +79,8 @@ export function HeroCopy({ chapterRefs }: HeroCopyProps) {
                 pointerEvents: isFirst ? 'auto' : 'none',
                 willChange: 'transform, opacity',
               }}
-              className={`absolute inset-x-0 flex flex-col justify-center ${containerAlignmentClass} ${
-                isFirst ? 'z-20' : 'z-10'
+              className={`absolute inset-x-0 flex-col justify-center ${containerAlignmentClass} ${
+                isFirst ? 'z-20 flex' : 'z-10 hidden lg:flex'
               }`}
             >
               {/* Luxury Overline Badge */}

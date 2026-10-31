@@ -30,7 +30,7 @@ export const HeroVideo = forwardRef<HTMLVideoElement, HeroVideoProps>(
   ) => {
     return (
       <div className={cn('relative h-full w-full overflow-hidden bg-charcoal', className)}>
-        {/* Fullscreen Video Element with Deliberate Mobile Portrait Alignment */}
+        {/* Fullscreen Video Element — Desktop GSAP Scrollytelling Scrubbing */}
         <video
           ref={ref}
           src={heroConfig.media.videoSrc}
@@ -41,20 +41,22 @@ export const HeroVideo = forwardRef<HTMLVideoElement, HeroVideoProps>(
           onLoadedMetadata={onLoadedMetadata}
           onCanPlay={onCanPlay}
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-[68%_center] lg:object-center select-none pointer-events-none"
+          className="hidden lg:block absolute inset-0 h-full w-full object-cover lg:object-center select-none pointer-events-none"
         />
 
-        {/* Seamless Poster Image Crossfade (Eliminates Initial Black Flash) */}
+        {/* Static Floral Doorway Hero Image */}
+        {/* Mobile (< 1024px): Permanent high-resolution floral doorway composition with zero black frame or decode latency */}
+        {/* Desktop (>= 1024px): Seamless poster crossfade that reveals video once playhead is initialized */}
         <div
           className={cn(
-            'absolute inset-0 transition-opacity duration-slow ease-luxury pointer-events-none z-10',
-            isReady ? 'opacity-0' : 'opacity-100'
+            'absolute inset-0 pointer-events-none z-10',
+            isReady ? 'opacity-100 lg:opacity-0 transition-opacity duration-slow ease-luxury' : 'opacity-100'
           )}
           aria-hidden="true"
         >
           <Image
             src={heroConfig.media.posterSrc}
-            alt="Tumkur Events Cinematic Hero"
+            alt="Tumkur Events Celebration Floral Doorway Entrance"
             fill
             priority
             sizes="100vw"
