@@ -37,7 +37,7 @@ export function CinematicHero() {
       id="cinematic-hero-section"
       ref={heroSectionRef}
       aria-label="Cinematic Celebration Experience"
-      className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-hidden bg-charcoal"
+      className="relative w-full h-[100svh] min-h-[580px] overflow-hidden bg-charcoal"
     >
       {/* Fullscreen Video Layer & Localized Alternating Scrims */}
       <HeroVideo
